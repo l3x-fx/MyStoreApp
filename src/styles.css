@@ -41,3 +41,9 @@ a {
     padding:4px;
     margin:8px 0px;
 }
+
+.btn {
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 20px;
+}

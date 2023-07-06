@@ -1,1 +1,19 @@
-<p>cart works!</p>
+<div class="cart-main">
+
+    <h1>{{title}}</h1>
+    <div class="cart">
+        <div>
+            <app-cart-item
+            class="cartitem"
+            *ngFor="let cartitem of cart" 
+            [cartitem]="cartitem"
+            />
+            <h1 class="cartitem">TOTAL: 1.235 $</h1>
+        </div>
+
+        <app-checkout 
+            class="cartitem"
+        />
+    </div>
+
+</div>

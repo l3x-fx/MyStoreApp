@@ -1,1 +1,40 @@
-<p>checkout works!</p>
+<form class="checkout-form">
+    <div>
+        <label for="name">Full Name</label>
+        <br>
+        <input 
+            class="checkout-input"
+            type="text" 
+            name="name" 
+            required 
+            minlength="3"
+            placeholder="full name" 
+        >    
+    </div>
+    <div>
+        <label for="address">Address</label>
+        <br>
+        <input 
+            class="checkout-input"
+            type="text" 
+            name="address" 
+            required 
+            minlength="6"
+            placeholder="address" 
+        >    
+    </div>
+    <div>
+        <label for="cardnumber">Credit Card Number</label>
+        <br>
+        <input 
+            class="checkout-input"
+            type="number" 
+            name="cardnumber" 
+            required 
+            minlength="16"
+            maxlength="16"
+            placeholder="credit card number" 
+        >    
+    </div>
+    <input type="submit"  value="Submit" class="btn">
+</form>

@@ -1,0 +1,16 @@
+<div class="detail-main">
+    <a routerLink="/product/{{cartitem.id}}">
+        <img src="{{cartitem.imgurl}}" width="80" />
+    </a>
+    <div class="item-detail">
+        <h2>{{cartitem.title}}</h2>
+        <p>{{cartitem.price}} §</p>
+        <input 
+            type="number" 
+            inputmode="numeric" 
+            id="quantity" 
+            value="{{cartitem.quantity}}"
+            class="quantity-input"
+        />
+    </div>
+</div>

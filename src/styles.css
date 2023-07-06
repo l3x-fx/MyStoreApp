@@ -26,8 +26,18 @@ img {
     box-shadow: 2px 2px 5px black;
 }
 
+p {
+    padding:5px 0px;
+}
+
+a {
+    color:  #8f4c43;
+    font-size:14px;
+    margin: 25px 0px;
+}
+
 .quantity-input {
     width:100px;
     padding:4px;
-    margin:8px;
+    margin:8px 0px;
 }

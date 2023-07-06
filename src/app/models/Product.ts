@@ -5,5 +5,4 @@ export interface Product {
     imgurl: string;
     price: number;
     quantity: number;
-
 }

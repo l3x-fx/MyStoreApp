@@ -1,1 +1,25 @@
-<p>product-detail works!</p>
+<div class="detail-main">
+    <a routerLink="/product/{{product.id}}">
+        <img src="{{product.imgurl}}" width="300" />
+    </a>
+    <div class="item-detail">
+        <h1>{{product.title}}</h1>
+        <p>{{product.description}}</p>
+        <p>{{product.price}} §</p>
+        <input 
+            type="number" 
+            inputmode="numeric" 
+            id="quantity" 
+            value="{{product.quantity}}"
+            class="quantity-input"
+        />
+        <button class="btn" >
+            Add to Cart
+        </button>
+        <p>
+            <a 
+            routerLink="/"
+            >↞ back to Product List</a>
+        </p>
+    </div>
+</div>

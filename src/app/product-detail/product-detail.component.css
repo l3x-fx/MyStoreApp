@@ -1,0 +1,9 @@
+.detail-main{
+    display:flex;
+    flex-direction: row;
+}
+.item-detail{
+    display:flex;
+    flex-direction: column;
+    padding:55px;
+}

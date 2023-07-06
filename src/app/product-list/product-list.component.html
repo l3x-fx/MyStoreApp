@@ -1,1 +1,10 @@
-<p>product-list works!</p>
+<div class="prod">
+    <h1>{{ title }}</h1>
+    <div class="prodlist">
+        <app-product-list-item 
+            class="prodlistitem"
+            *ngFor="let product of products" 
+            [product]="product"
+        />
+    </div>
+</div>

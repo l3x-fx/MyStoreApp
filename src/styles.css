@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Raleway&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Raleway:wght@400;700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -8,4 +8,26 @@
     font-family: 'Raleway', sans-serif;
     font-size: 18px;
 
+}
+
+h1 {
+    font-size: 24px;
+    font-weight:700px;
+}
+
+h2 {
+    font-size: 20px;
+    font-weight:700px;
+    margin-top:10px;
+}
+
+img {
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px black;
+}
+
+.quantity-input {
+    width:100px;
+    padding:4px;
+    margin:8px;
 }

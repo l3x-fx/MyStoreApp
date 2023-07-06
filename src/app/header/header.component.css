@@ -1,0 +1,36 @@
+.header {
+    display: flex;
+    border: solid 1px grey;
+    position:fixed;
+    top:0px;
+    width: 100vw;
+    height: 50px;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.title {
+    margin: 0px 20px;
+    font-family: 'Girassol', cursive;
+    font-size: 30px;
+    color:azure
+}
+
+.nav {
+    margin: 0px auto 0px 30px;
+    color:azure
+}
+
+.headerpic {
+    display: flex;
+    background: url("../../assets/header.jpg");
+    background-size: 100%;
+    background-position: right 50% bottom 40%;
+    height: 40vh;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Girassol', cursive;
+    font-size: 80px;
+    color:azure;
+    text-shadow: 5px 5px black;
+}

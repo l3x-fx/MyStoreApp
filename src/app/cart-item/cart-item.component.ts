@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Product } from '../models/Product';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-cart-item',
@@ -8,8 +9,9 @@ import { Product } from '../models/Product';
 })
 export class CartItemComponent {
   @Input() cartitem: Product;
-  // @Output() hidePost: EventEmitter<Post> = new EventEmitter;
-  constructor() {
+  @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+
+  constructor(private cartService:CartService) {
     this.cartitem= {
       id:0,
       title: '',
@@ -19,4 +21,9 @@ export class CartItemComponent {
       quantity:1,
     }
   }
+
+  onDelete():void {
+      this.delete.emit(this.cartitem.id);
+  }
+
 }

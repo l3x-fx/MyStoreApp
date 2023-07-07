@@ -9,9 +9,11 @@
         id="quantity" 
         value="{{product.quantity}}"
         class="quantity-input"
+        [(ngModel)]="product.quantity"
     />
     <button 
         class="btn" 
+        (click)="addToCart(product)"
     >
         Add to Cart
     </button>

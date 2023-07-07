@@ -10,7 +10,6 @@ import { CartService } from '../services/cart.service'
 
 export class ProductListItemComponent {
     @Input() product: Product;
-    // @Output() hidePost: EventEmitter<Post> = new EventEmitter;
 
     constructor(private cartService:CartService) {
         this.product= {
@@ -25,7 +24,7 @@ export class ProductListItemComponent {
 
     addToCart(product:Product): void {
         this.cartService.addItem(product)
-        alert('Product added to cart: ' + product.title);
+        alert('Product added to cart: \n' + product.title);
     }
 }
     

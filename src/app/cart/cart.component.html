@@ -8,6 +8,7 @@
             *ngFor="let cartitem of cart" 
             [cartitem]="cartitem"
             (delete)="removeItem($event)"
+            (changeQuantity)="changeQuantity($event)"
             />
             <h1 class="cartitem">TOTAL: {{amount}} $</h1>
         </div>

@@ -10,6 +10,7 @@ import { CartService } from '../services/cart.service';
 export class CartItemComponent {
   @Input() cartitem: Product;
   @Output() delete: EventEmitter<number> = new EventEmitter<number>();
+  @Output() changeQuantity: EventEmitter<{ id: number, quantity: number }> = new EventEmitter<{ id: number, quantity: number }>();
 
   constructor(private cartService:CartService) {
     this.cartitem= {
@@ -24,6 +25,11 @@ export class CartItemComponent {
 
   onDelete():void {
       this.delete.emit(this.cartitem.id);
+  }
+
+  onChangeQuantity():void {
+    const payload = { id: this.cartitem.id, quantity: this.cartitem.quantity };
+    this.changeQuantity.emit(payload);
   }
 
 }

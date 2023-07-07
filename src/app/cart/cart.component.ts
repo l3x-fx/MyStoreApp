@@ -10,18 +10,30 @@ import { CartService } from '../services/cart.service';
 export class CartComponent {
     title:string = 'Shopping Cart';
     cart: Product[] = [];
-    amount: number = this.cart.reduce((acc, item) =>  acc + (item.price*item.quantity), 0);
+    amount: number = 0;
 
     constructor(private cartService:CartService) {}
 
     ngOnInit():void {
-        this.cartService.getCart().subscribe((newCart:Product[]) => this.cart = newCart)
+        this.cartService.getCart().subscribe((newCart:Product[]) => {
+            this.cart = newCart;
+            this.calculateAmount();
+        })
+    }
+
+    calculateAmount():void{
+        this.amount = this.cart.reduce((acc, item) =>  acc + (item.price*item.quantity), 0)
     }
 
     removeItem(id: number): void {
         this.cart = this.cartService.deleteItem(id)
+        this.calculateAmount();
+        alert ('Item Deleted!')
     }
 
-
+    changeQuantity(payload:{ id: number, quantity: number }) {
+        this.cart = this.cartService.changeQuantity(payload.id, payload.quantity)
+        this.calculateAmount();
+    }
 
 }

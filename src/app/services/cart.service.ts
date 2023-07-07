@@ -13,21 +13,37 @@ export class CartService {
         return of(this.cart);
     }
 
-    deleteItem(id:number){
+    deleteItem(id:number):Product[]{
         this.cart = this.cart.filter(product =>  product.id!=id)
         return this.cart
     }
 
-    addItem(product:Product){
-        this.cart.push(product)
+    addItem(product:Product):Product[]{
+        if(this.cart.some(cartitem => cartitem.id === product.id)) {
+            this.cart = this.cart.map(item => {
+                if(item.id === product.id) {
+                    item.quantity += product.quantity
+                }
+                return item; 
+            })
+        } else {
+            this.cart.push(product)
+        }
         return this.cart
     }
 
-    changeQuantity(id:number, quantity:number){
-        return this.cart.map(product => {
+    changeQuantity(id:number, quantity:number): Product[]{
+        this.cart = this.cart.map(product => {
             if(product.id === id) {
                 product.quantity = quantity
             }
+            return product; 
         })
+        return this.cart
+    }
+
+    resetCart():Product[]{
+        this.cart = []
+        return this.cart
     }
 }

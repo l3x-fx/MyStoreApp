@@ -1,5 +1,5 @@
 import { Component  } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Product } from '../models/Product';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
@@ -23,6 +23,7 @@ export class ProductDetailComponent {
     constructor(
         private productService:ProductService,
         private route: ActivatedRoute,
+        private router: Router,
         private cartService:CartService
         ) {}
 
@@ -42,6 +43,7 @@ export class ProductDetailComponent {
 
     addToCart(product:Product): void {
         this.cartService.addItem(product)
+        this.router.navigate(['/']);
         alert('Product added to cart: ' + product.title);
     }
 

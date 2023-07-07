@@ -41,5 +41,5 @@
         <p style="font-size:10px; padding-bottom:20px;">We'll never share your payment details with anyone else!</p>
     </div>
 
-    <input type="submit" [disabled]="form.invalid" value="Submit" class="btn">
+    <input type="submit" [disabled]="form.invalid || amount === 0" value="Submit" class="btn">
 </form>

@@ -8,6 +8,10 @@
     font-family: 'Raleway', sans-serif;
     font-size: 18px;
 
+body {
+    overflow: scroll;
+    }
+
 }
 
 h1 {
@@ -34,6 +38,7 @@ a {
     color:  #8f4c43;
     font-size:14px;
     margin: 25px 0px;
+    cursor: pointer;
 }
 
 .quantity-input {

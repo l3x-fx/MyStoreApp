@@ -8,10 +8,10 @@ export interface Product {
 }
 
 export interface RawProduct {
-        id: number,
-        name: string,
-        description: string,
-        url: string,
-        price: number,
-        category: string
+    id: number,
+    name: string,
+    description: string,
+    url: string,
+    price: number,
+    category: string
 }

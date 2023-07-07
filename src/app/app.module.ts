@@ -15,24 +15,24 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProductListComponent,
-    ProductDetailComponent,
-    CartComponent,
-    CheckoutComponent,
-    OrderConfirmComponent,
-    HeaderComponent,
-    ProductListItemComponent,
-    CartItemComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        ProductListComponent,
+        ProductDetailComponent,
+        CartComponent,
+        CheckoutComponent,
+        OrderConfirmComponent,
+        HeaderComponent,
+        ProductListItemComponent,
+        CartItemComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
+    providers: [],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

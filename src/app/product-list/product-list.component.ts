@@ -3,9 +3,9 @@ import { Product } from '../models/Product';
 import { ProductService } from '../services/product.service';
 
 @Component({
-  selector: 'app-product-list',
-  templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css']
+    selector: 'app-product-list',
+    templateUrl: './product-list.component.html',
+    styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
     title:string = 'Exclusive Offers';
@@ -14,9 +14,9 @@ export class ProductListComponent {
     constructor(private productService:ProductService) {}
 
     ngOnInit():void {  
-      this.productService.getAllProducts().subscribe(res => {
+    this.productService.getAllProducts().subscribe(res => {
         this.products = res.map(product => {
-          return { 
+        return { 
             id:product.id,
             title: product.name,
             description:product.description,
@@ -24,7 +24,7 @@ export class ProductListComponent {
             price: product.price,
             quantity: 1 };
         });
-      });
+    });
     }
     
 }

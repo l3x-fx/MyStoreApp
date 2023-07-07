@@ -6,14 +6,14 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
-  { path: '', component: ProductListComponent }, 
-  { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'cart', component: CartComponent },
-  {path: 'confirm', component: OrderConfirmComponent}
+    { path: '', component: ProductListComponent }, 
+    { path: 'product/:id', component: ProductDetailComponent },
+    { path: 'cart', component: CartComponent },
+    {path: 'confirm', component: OrderConfirmComponent}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+    imports: [RouterModule.forRoot(routes)],
+    exports: [RouterModule]
 })
 export class AppRoutingModule { }

@@ -11,6 +11,8 @@ import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductListItemComponent } from './product-list-item/product-list-item.component';
 import { CartItemComponent } from './cart-item/cart-item.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { CartItemComponent } from './cart-item/cart-item.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

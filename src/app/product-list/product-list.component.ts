@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../models/Product';
+import { ProductService } from '../services/product.service';
 
 @Component({
   selector: 'app-product-list',
@@ -10,27 +11,20 @@ export class ProductListComponent {
     title:string = 'Exclusive Offers';
     products: Product[] = [];
 
-    constructor() {}
+    constructor(private productService:ProductService) {}
 
-    ngOnInit():void {
-      this.products= [
-        {
-        id:1,
-        title: 'Coffee',
-        description: 'wake up!',
-        imgurl: '../../assets/coffee.jpg',
-        price: 1,
-        quantity:1,
-      },
-      {
-        id:2,
-        title: 'Whiskey',
-        description: 'cool down...',
-        imgurl: '../../assets/whiskey.jpg',
-        price: 1,
-        quantity:1,
-      }
-    ]
+    ngOnInit():void {  
+      this.productService.getAllProducts().subscribe(res => {
+        this.products = res.map(product => {
+          return { 
+            id:product.id,
+            title: product.name,
+            description:product.description,
+            imgurl: product.url,
+            price: product.price,
+            quantity: 1 };
+        });
+      });
     }
     
 }

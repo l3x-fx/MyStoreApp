@@ -1,7 +1,7 @@
 .detail-main{
     display:flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
 }
 .item-detail{
     margin: 25px 35px;

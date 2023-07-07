@@ -8,10 +8,10 @@
             *ngFor="let cartitem of cart" 
             [cartitem]="cartitem"
             />
-            <h1 class="cartitem">TOTAL: 1.235 $</h1>
+            <h1 class="cartitem">TOTAL: {{amount}} $</h1>
         </div>
 
-        <app-checkout 
+        <app-checkout [amount]="amount"
             class="cartitem"
         />
     </div>

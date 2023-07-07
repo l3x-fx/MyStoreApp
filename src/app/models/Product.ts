@@ -6,3 +6,12 @@ export interface Product {
     price: number;
     quantity: number;
 }
+
+export interface RawProduct {
+        id: number,
+        name: string,
+        description: string,
+        url: string,
+        price: number,
+        category: string
+}

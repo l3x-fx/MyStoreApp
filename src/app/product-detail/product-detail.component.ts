@@ -44,7 +44,7 @@ export class ProductDetailComponent {
     addToCart(product:Product): void {
         this.cartService.addItem(product)
         this.router.navigate(['/']);
-        alert('Product added to cart: ' + product.title);
+        alert('Product added to cart: \n' + product.title);
     }
 
 

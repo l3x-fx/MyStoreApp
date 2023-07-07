@@ -6,6 +6,7 @@ MyStore is Angular single-page-application that allows users to view a list of a
 
 ## Setup Backend
 This application runs with the Storefront Backend you can find here: [Storefront Backend](https://github.com/l3x-fx/Storefront_Backend_Project) 
+
 Please follow the directions given in this repo to set up and migrate the databases properly.  
 
 ## Ports

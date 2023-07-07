@@ -32,15 +32,18 @@ export class CartService {
         return this.cart
     }
 
-    changeQuantity(id:number, quantity:number): Product[]{
-        this.cart = this.cart.map(product => {
-            if(product.id === id) {
-                product.quantity = quantity
-            }
-            return product; 
-        })
-        return this.cart
+    changeQuantity(id: number, quantity: number): Product[] {
+        
+            this.cart = this.cart.map(product => {
+                if (product.id === id) {
+                product.quantity = quantity;
+                }
+                return product;
+            });
+        
+        return this.cart;
     }
+
 
     resetCart():Product[]{
         this.cart = []

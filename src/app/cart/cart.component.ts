@@ -31,7 +31,7 @@ export class CartComponent {
         alert ('Item Deleted!')
     }
 
-    changeQuantity(payload:{ id: number, quantity: number }) {
+    changeQuantity(payload:{ id: number, quantity: number }):void {
         this.cart = this.cartService.changeQuantity(payload.id, payload.quantity)
         this.calculateAmount();
     }

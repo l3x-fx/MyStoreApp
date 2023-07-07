@@ -9,10 +9,12 @@
             type="number" 
             inputmode="numeric" 
             id="quantity" 
+            min="1"
             value="{{cartitem.quantity}}"
             class="quantity-input"
             [(ngModel)]="cartitem.quantity"
             (ngModelChange)="onChangeQuantity()"
+            onkeydown="return false"
         />
     </div>
     <div>

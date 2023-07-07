@@ -23,13 +23,12 @@ export class CartItemComponent {
         }
     }
 
-  onDelete():void {
-      this.delete.emit(this.cartitem.id);
-  }
+    onDelete():void {
+            this.delete.emit(this.cartitem.id);
+    }
 
-  onChangeQuantity():void {
-    const payload = { id: this.cartitem.id, quantity: this.cartitem.quantity };
-    this.changeQuantity.emit(payload);
-  }
-
+    onChangeQuantity():void {      
+            const payload = { id: this.cartitem.id, quantity: this.cartitem.quantity };
+            this.changeQuantity.emit(payload);
+    }
 }

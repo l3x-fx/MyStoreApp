@@ -1,0 +1,24 @@
+<mat-card>
+    <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+        <a routerLink="/product/{{ product.id }}">
+            <img mat-card-image src="{{ product.imgurl }}" width="220" />
+        </a>
+        <h2>{{ product.title }}</h2>
+        <h3>{{ product.price }} $</h3>
+        <mat-form-field class="example-full-width">
+            <input
+                type="number"
+                matInput
+                inputmode="numeric"
+                min="1"
+                value="{{ product.quantity }}"
+                class="quantity-input"
+                [(ngModel)]="product.quantity"
+            />
+        </mat-form-field>
+
+        <button mat-raised-button type="button" (click)="addToCart(product)">
+            Add to Cart
+        </button>
+    </mat-card-content>
+</mat-card>

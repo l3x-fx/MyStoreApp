@@ -4,14 +4,15 @@
     align-items: center;
 }
 .prodlist {
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* display: grid;
+    grid-template-columns: repeat(3, 1fr); */
+    flex-flow: row wrap;
 }
 .prodlistitem {
-    display:flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     width: 250px;
-    padding:15px;
-    margin:5vw;
+    padding: 15px;
+    margin: 5vw;
 }

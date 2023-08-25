@@ -1,0 +1,26 @@
+<div class="header">
+    <div fxHide.gt-xs>
+        <button mat-icon-button (click)="onToggleSidenav()">
+            <mat-icon fontIcon="menu" />
+        </button>
+    </div>
+    <div class="title">MyStore</div>
+    <div class="nav" fxLayout fxFlex fxHide.xs fxLayoutGap="10px">
+        <a routerLink="/">Products</a> <span>|</span>
+        <a routerLink="/cart">Cart</a>
+    </div>
+    <div
+        class="nav"
+        fxFlex
+        fxLayout="row"
+        fxLayoutAlign="end center"
+        fxHide.xs
+        fxLayoutGap="10px"
+        style="margin-right: 40px"
+    >
+        <a routerLink="/signup">SignUp</a> <span>|</span>
+        <a routerLink="/login">LogIn</a> <span>|</span>
+        <a routerLink="/home" fxFlexAlign="end">LogOut</a>
+    </div>
+</div>
+<div class="headerpic">MyStore</div>

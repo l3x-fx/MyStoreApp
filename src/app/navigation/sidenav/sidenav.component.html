@@ -1,0 +1,19 @@
+<mat-nav-list>
+    <a mat-list-item routerLink="/products" (click)="onClose()">
+        <span class="nav-caption">Products</span>
+    </a>
+
+    <a mat-list-item routerLink="/cart" (click)="onClose()">
+        <span class="nav-caption">Cart</span>
+    </a>
+    <hr />
+    <a *ngIf="!isAuth" mat-list-item routerLink="/signup" (click)="onClose()">
+        <span class="nav-caption">SignUp</span>
+    </a>
+    <a *ngIf="!isAuth" mat-list-item routerLink="/login" (click)="onClose()">
+        <span class="nav-caption">LogIn</span>
+    </a>
+    <a *ngIf="isAuth" mat-list-item routerLink="/training" (click)="onClose()">
+        <span class="nav-caption">Training</span>
+    </a>
+</mat-nav-list>

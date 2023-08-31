@@ -1,10 +1,22 @@
 import {Component} from '@angular/core'
 import {Product} from '../../shared/models/Product'
-
+import {MatFormFieldModule} from '@angular/material/form-field'
 import {CartService} from '../../services/cart.service'
+import {CommonModule} from '@angular/common'
+import {FormsModule} from '@angular/forms'
+import {CartItemComponent} from '../cart-item/cart-item.component'
+import {RouterLink} from '@angular/router'
 
 @Component({
     selector: 'app-cart',
+    standalone: true,
+    imports: [
+        CommonModule,
+        FormsModule,
+        RouterLink,
+        CartItemComponent,
+        MatFormFieldModule,
+    ],
     templateUrl: './cart.component.html',
     styleUrls: ['./cart.component.css'],
 })

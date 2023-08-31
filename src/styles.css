@@ -10,7 +10,13 @@
 }
 
 body {
+    box-sizing: border-box;
     overflow: scroll;
+    margin: 0px;
+    padding: 0px;
+}
+.mat-typography {
+    box-sizing: border-box;
     margin: 0px;
     padding: 0px;
 }

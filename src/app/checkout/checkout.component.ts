@@ -1,12 +1,33 @@
 import {Component, Input} from '@angular/core'
-import {Router, NavigationExtras} from '@angular/router'
+import {Router, NavigationExtras, RouterLink} from '@angular/router'
 import {CartService} from 'src/app/services/cart.service'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import {
+    FormBuilder,
+    FormGroup,
+    ReactiveFormsModule,
+    Validators,
+} from '@angular/forms'
 import {Product} from 'src/app/shared/models/Product'
+import {CommonModule} from '@angular/common'
+import {MatStepperModule} from '@angular/material/stepper'
+import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatRadioModule} from '@angular/material/radio'
+import {CartItemComponent} from '../products/cart-item/cart-item.component'
 
 @Component({
     selector: 'app-checkout',
+    standalone: true,
+    imports: [
+        ReactiveFormsModule,
+        RouterLink,
+        CommonModule,
+        MatStepperModule,
+        CartItemComponent,
+        MatFormFieldModule,
+        MatRadioModule,
+    ],
     templateUrl: './checkout.component.html',
+
     styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent {

@@ -6,13 +6,13 @@ import {AppComponent} from './app.component'
 import {ProductListComponent} from './products/product-list/product-list.component'
 import {ProductDetailComponent} from './products/product-detail/product-detail.component'
 import {CartComponent} from './products/cart/cart.component'
-import {CheckoutComponent} from './products/checkout/checkout.component'
+import {CheckoutComponent} from './checkout/checkout.component'
 import {OrderConfirmComponent} from './products/order-confirm/order-confirm.component'
 import {HeaderComponent} from './navigation/header/header.component'
 import {ProductListItemComponent} from './products/product-list-item/product-list-item.component'
 import {CartItemComponent} from './products/cart-item/cart-item.component'
 import {HttpClientModule} from '@angular/common/http'
-import {FormsModule} from '@angular/forms'
+import {FormsModule, ReactiveFormsModule} from '@angular/forms'
 import {SignUpComponent} from './auth/sign-up/sign-up.component'
 import {LogInComponent} from './auth/log-in/log-in.component'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
@@ -36,6 +36,8 @@ import {SidenavComponent} from './navigation/sidenav/sidenav.component'
         SidenavComponent,
     ],
     imports: [
+        ReactiveFormsModule,
+        FormsModule,
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,

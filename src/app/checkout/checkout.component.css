@@ -1,0 +1,19 @@
+.checkout-form {
+    margin-top: 20px;
+}
+.checkout-input {
+    width: 25vw;
+    margin: 5px 0px 15px;
+    font-size: 14px;
+    padding: 5px;
+}
+.full-width {
+    width: 366px;
+}
+
+.onethird-width {
+    width: 122px;
+}
+.twothird-width {
+    width: 244px;
+}

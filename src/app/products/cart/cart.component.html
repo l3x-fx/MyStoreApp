@@ -1,21 +1,32 @@
-<div class="cart-main">
-
-    <h1>{{title}}</h1>
-    <div class="cart">
+<div fxLayout="column" fxLayoutAlign="center center">
+    <h1>{{ title }}</h1>
+    <div
+        fxLayout="column"
+        fxLayout.gt-sm="row"
+        fxLayoutAlign="center center"
+        class="cart"
+    >
         <div>
             <app-cart-item
-            class="cartitem"
-            *ngFor="let cartitem of cart" 
-            [cartitem]="cartitem"
-            (delete)="removeItem($event)"
-            (changeQuantity)="changeQuantity($event)"
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="cartitem"
+                *ngFor="let cartitem of cart"
+                [cartitem]="cartitem"
+                (delete)="removeItem($event)"
+                (changeQuantity)="changeQuantity($event)"
             ></app-cart-item>
-            <h1 class="cartitem">TOTAL: {{amount}} $</h1>
+            <p *ngIf="amount === 0">There are no items in your cart.</p>
+            <h2 *ngIf="amount > 0" class="cartitem">TOTAL: {{ amount }} $</h2>
+            <button
+                *ngIf="amount > 0"
+                mat-raised-button
+                color="primary"
+                type="button"
+                routerLink="/checkout"
+            >
+                Go to Checkout
+            </button>
         </div>
-
-        <app-checkout [amount]="amount"
-            class="cartitem"
-        ></app-checkout>
     </div>
-
 </div>

@@ -1,0 +1,147 @@
+<!-- *ngIf="amount > 0"  -->
+<mat-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="itemsFormGroup">
+        <form [formGroup]="itemsFormGroup">
+            <ng-template matStepLabel>Order Summary</ng-template>
+            <app-cart-item
+                fxLayout="column"
+                fxLayoutAlign="center center"
+                class="cartitem"
+                *ngFor="let cartitem of cart"
+                [cartitem]="cartitem"
+                (delete)="removeItem($event)"
+                (changeQuantity)="changeQuantity($event)"
+            ></app-cart-item>
+            <div>
+                <button mat-raised-button color="primary" matStepperNext>
+                    Continue to Shipping
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="shippingFormGroup">
+        <form
+            [formGroup]="shippingFormGroup"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+        >
+            <ng-template matStepLabel>Shipping</ng-template>
+            <mat-form-field class="full-width">
+                <mat-label>First Name</mat-label>
+                <input matInput type="text" required formControlName="fname" />
+            </mat-form-field>
+            <mat-form-field class="full-width">
+                <mat-label>Last Name</mat-label>
+                <input matInput type="text" required formControlName="lname" />
+            </mat-form-field>
+
+            <mat-form-field class="full-width" v>
+                <mat-label>Adress</mat-label>
+                <input
+                    matInput
+                    type="text"
+                    required
+                    formControlName="address"
+                />
+            </mat-form-field>
+            <table cellspacing="0">
+                <tr>
+                    <td>
+                        <mat-form-field class="onethird-width">
+                            <mat-label>Postal Code</mat-label>
+                            <input
+                                matInput
+                                #postalCode
+                                maxlength="5"
+                                formControlName="postalCode"
+                            />
+                        </mat-form-field>
+                    </td>
+                    <td>
+                        <mat-form-field class="twothird-width">
+                            <mat-label>City</mat-label>
+                            <input
+                                matInput
+                                placeholder="San Francisco"
+                                formControlName="city"
+                            />
+                        </mat-form-field>
+                    </td>
+                </tr>
+            </table>
+            <mat-form-field class="full-width">
+                <mat-label>Country</mat-label>
+                <input
+                    matInput
+                    type="text"
+                    required
+                    formControlName="country"
+                />
+            </mat-form-field>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button
+                    matStepperNext
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!shippingFormGroup.valid"
+                >
+                    Continue to Payment
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="paymentFormGroup">
+        <form
+            [formGroup]="paymentFormGroup"
+            fxLayout="column"
+            fxLayoutAlign="center center"
+        >
+            <ng-template matStepLabel>Payment</ng-template>
+            <div>
+                <mat-radio-group
+                    formControlName="paymentMethod"
+                    fxLayout="column"
+                >
+                    <mat-radio-button value="creditCard"
+                        >Credit Card
+                    </mat-radio-button>
+                    <mat-radio-button value="paypal">PayPal</mat-radio-button>
+                </mat-radio-group>
+
+                <mat-form-field *ngIf="paymentMethod === 'creditCard'">
+                    <mat-label>Credit Card Number</mat-label>
+                    <input matInput formControlName="cardNumber" />
+                </mat-form-field>
+
+                <p *ngIf="paymentMethod === 'paypal'">
+                    This payment method is currently not available
+                </p>
+            </div>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button
+                    matStepperNext
+                    mat-raised-button
+                    color="primary"
+                    [disabled]="!paymentFormGroup.valid"
+                >
+                    SUBMIT ORDER
+                </button>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Done!</ng-template>
+        <h1>Your order was succesfully sent!</h1>
+        <h3>Thank you for using MyStore.</h3>
+        <h3>
+            Please consider visiting my GitHub for further Front-End and
+            Fullstack projects!
+        </h3>
+
+        <div>
+            <button mat-button>Continue Shopping</button>
+        </div>
+    </mat-step>
+</mat-stepper>

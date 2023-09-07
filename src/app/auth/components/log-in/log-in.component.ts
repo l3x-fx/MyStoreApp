@@ -4,6 +4,7 @@ import {FormsModule, NgForm} from '@angular/forms'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatButtonModule} from '@angular/material/button'
 import {FlexLayoutModule} from '@angular/flex-layout'
+import {MatInputModule} from '@angular/material/input'
 
 @Component({
     selector: 'app-log-in',
@@ -14,6 +15,7 @@ import {FlexLayoutModule} from '@angular/flex-layout'
         MatFormFieldModule,
         FlexLayoutModule,
         MatButtonModule,
+        MatInputModule,
     ],
     templateUrl: './log-in.component.html',
     styleUrls: ['./log-in.component.css'],

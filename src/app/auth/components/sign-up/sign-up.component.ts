@@ -3,6 +3,7 @@ import {Component} from '@angular/core'
 import {FormsModule, NgForm} from '@angular/forms'
 import {MatFormFieldModule} from '@angular/material/form-field'
 import {MatButtonModule} from '@angular/material/button'
+import {MatInputModule} from '@angular/material/input'
 import {FlexLayoutModule} from '@angular/flex-layout'
 
 @Component({
@@ -14,6 +15,7 @@ import {FlexLayoutModule} from '@angular/flex-layout'
         MatFormFieldModule,
         MatButtonModule,
         FlexLayoutModule,
+        MatInputModule,
     ],
     templateUrl: './sign-up.component.html',
     styleUrls: ['./sign-up.component.css'],

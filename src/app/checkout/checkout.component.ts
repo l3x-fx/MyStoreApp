@@ -11,8 +11,11 @@ import {Product} from 'src/app/shared/models/Product'
 import {CommonModule} from '@angular/common'
 import {MatStepperModule} from '@angular/material/stepper'
 import {MatFormFieldModule} from '@angular/material/form-field'
+import {MatInputModule} from '@angular/material/input'
+import {MatButtonModule} from '@angular/material/button'
 import {MatRadioModule} from '@angular/material/radio'
 import {CartItemComponent} from '../products/cart-item/cart-item.component'
+import {FlexLayoutModule} from '@angular/flex-layout'
 
 @Component({
     selector: 'app-checkout',
@@ -25,6 +28,9 @@ import {CartItemComponent} from '../products/cart-item/cart-item.component'
         CartItemComponent,
         MatFormFieldModule,
         MatRadioModule,
+        MatInputModule,
+        MatButtonModule,
+        FlexLayoutModule,
     ],
     templateUrl: './checkout.component.html',
 

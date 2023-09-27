@@ -5,7 +5,7 @@ import { AuthState } from '../types/authState.interface';
 const initialState: AuthState = {
   isSubmitting: false,
   isLoading: false,
-  currentUser: undefined,
+  currentUser: null,
   validationErrors: null,
 };
 
@@ -37,12 +37,12 @@ const authFeature = createFeature({
       isSubmitting: true,
       validationErrors: null,
     })),
-    on(authActions.signupSuccess, (state, action) => ({
+    on(authActions.loginSuccess, (state, action) => ({
       ...state,
       isSubmitting: false,
       currentUser: action.user,
     })),
-    on(authActions.signupFailure, (state, action) => ({
+    on(authActions.loginFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
       validationErrors: action.errors,
@@ -59,10 +59,10 @@ const authFeature = createFeature({
       isLoading: false,
       currentUser: action.user,
     })),
-    on(authActions.getUserFailure, (state, action) => ({
+    on(authActions.getUserFailure, (state) => ({
       ...state,
       isLoading: false,
-      validationErrors: action.errors,
+      currentUser: null,
     })),
 
     //EDIT_USER
@@ -81,5 +81,21 @@ const authFeature = createFeature({
       isSubmitting: false,
       validationErrors: action.errors,
     })),
+
+    //LOGOUT
+    on(authActions.logout, (state) => ({
+      ...state,
+      ...initialState,
+      currentUser: null,
+    })),
   ),
 });
+
+export const {
+  name: authFeatureKey,
+  reducer: authReducer,
+  selectIsSubmitting,
+  selectIsLoading,
+  selectCurrentUser,
+  selectValidationErrors,
+} = authFeature;

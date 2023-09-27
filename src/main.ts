@@ -1,20 +1,48 @@
-import {bootstrapApplication} from '@angular/platform-browser'
-import {provideAnimations} from '@angular/platform-browser/animations'
-import {importProvidersFrom} from '@angular/core'
-import {HttpClient} from '@angular/common/http'
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { isDevMode, importProvidersFrom } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import {
-    VERSION as MAT_VERSION,
-    MatNativeDateModule,
-} from '@angular/material/core'
-// import {provideRouterStore, routerReducer} from '@ngrx/router-store'
-import {appRoutes} from './app/app.routes'
-import {AppComponent} from './app/app.component'
-import {provideRouter} from '@angular/router'
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
+
+import { provideEffects } from '@ngrx/effects';
+import { provideState, provideStore } from '@ngrx/store';
+import { provideRouterStore, routerReducer } from '@ngrx/router-store';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
+
+import { appRoutes } from './app/app.routes';
+import { AppComponent } from './app/app.component';
+import { authFeatureKey, authReducer } from './app/auth/store/auth.reducer';
+import * as authEffects from './app/auth/store/auth.effects';
+import {
+  TokenInterceptor,
+  TokenInterceptorProvider,
+} from './app/shared/services/token.interceptor';
 
 bootstrapApplication(AppComponent, {
-    providers: [
-        provideRouter(appRoutes),
-        provideAnimations(),
-        importProvidersFrom(),
-    ],
-})
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    provideHttpClient(withInterceptorsFromDi()),
+    TokenInterceptorProvider,
+    provideRouter(appRoutes),
+    provideAnimations(),
+    importProvidersFrom(),
+    provideRouterStore(),
+    provideStore({
+      router: routerReducer,
+    }),
+    provideState(authFeatureKey, authReducer),
+    provideEffects(authEffects),
+    provideStoreDevtools({
+      maxAge: 25,
+      logOnly: !isDevMode(),
+      autoPause: true,
+      trace: false,
+      traceLimit: 75,
+    }),
+  ],
+});

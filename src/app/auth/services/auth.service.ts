@@ -18,26 +18,22 @@ import {
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  signup(data: UserSignupRequest): Observable<User> {
+  signup(data: UserSignupRequest): Observable<UserSignupResponse> {
     const url = environment.apiUrl + '/signup';
     return this.http
       .post<UserSignupResponse>(url, data)
-      .pipe(map((response) => response.user));
+      .pipe(map((response) => response));
   }
 
-  login(data: UserLoginRequest): Observable<User> {
-    const url = environment.apiUrl + '/users/login';
+  login(data: UserLoginRequest): Observable<UserLoginResponse> {
+    const url = environment.apiUrl + '/login';
     return this.http
       .post<UserLoginResponse>(url, data)
-      .pipe(map((response) => response.user));
-  }
-
-  logout(): void {
-    localStorage.removeItem('mystore-token');
+      .pipe(map((response) => response));
   }
 
   editCurrentUser(userId: string, data: User): Observable<User> {
-    const url = environment.apiUrl + '/user/' + userId;
+    const url = environment.apiUrl + '/users/' + userId;
     const token = localStorage.getItem('mystore-token');
     if (!token) {
       throw new Error('Token is missing.');
@@ -48,16 +44,14 @@ export class AuthService {
       .pipe(map((response) => response));
   }
 
-  getCurrentUser(userId: string): Observable<User> {
-    const url = environment.apiUrl + '/user/' + userId;
+  getCurrentUser(userId?: string): Observable<User> {
+    const id = userId || localStorage.getItem('mystore-id');
+    const url = environment.apiUrl + '/users/' + id;
     const token = localStorage.getItem('mystore-token');
     if (!token) {
       throw new Error('Token is missing.');
     }
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    return this.http
-      .get<User>(url, { headers })
-      .pipe(map((response) => response));
+    return this.http.get<User>(url).pipe(map((response) => response));
   }
 }

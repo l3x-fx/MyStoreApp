@@ -87,6 +87,13 @@ const authFeature = createFeature({
       ...state,
       ...initialState,
       currentUser: null,
+      validationErrors: null,
+    })),
+
+    //LOGOUT
+    on(authActions.errorReset, (state) => ({
+      ...state,
+      validationErrors: null,
     })),
   ),
 });

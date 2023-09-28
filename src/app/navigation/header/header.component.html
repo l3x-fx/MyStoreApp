@@ -21,6 +21,9 @@
     <a *ngIf="!(currentUser$ | async)" routerLink="/signup">SignUp</a>
     <span *ngIf="!(currentUser$ | async)">|</span>
     <a *ngIf="!(currentUser$ | async)" routerLink="/login">LogIn</a>
+
+    <a *ngIf="currentUser$ | async" routerLink="/account">{{ firstname }}</a>
+    <span *ngIf="currentUser$ | async">|</span>
     <a
       *ngIf="currentUser$ | async"
       routerLink="/home"

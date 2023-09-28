@@ -1,4 +1,4 @@
-import { User } from './User.interface';
+import { User } from '../../shared/models/User.interface';
 
 export interface UserLoginRequest {
   user: {

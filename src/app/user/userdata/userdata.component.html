@@ -1,0 +1,124 @@
+<div *ngIf="currentUser$ | async as currentUser">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>User Data</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div *ngIf="!isEdit" fxFlex fxLayout="column">
+        <div class="detail-descr">First name:</div>
+        <div class="detail-info">{{ currentUser.firstname }}</div>
+        <div class="detail-descr">Last name:</div>
+        <div class="detail-info">{{ currentUser.lastname }}</div>
+        <div class="detail-descr">Email:</div>
+        <div class="detail-info">{{ currentUser.email }}</div>
+        <div class="detail-descr">Address:</div>
+        <div class="detail-info">{{ currentUser.address || "--" }}</div>
+        <div class="detail-descr">Zip:</div>
+        <div class="detail-info">{{ currentUser.zip || "--" }}</div>
+        <div class="detail-descr">city:</div>
+        <div class="detail-info">{{ currentUser.city || "--" }}</div>
+        <div class="detail-descr">country:</div>
+        <div class="detail-info">{{ currentUser.city || "--" }}</div>
+      </div>
+      <div *ngIf="isEdit" fxFlex fxLayout="column">
+        <form class="example-form">
+          <mat-form-field class="full-width">
+            <mat-label>First name</mat-label>
+            <input
+              matInput
+              placeholder="Enter your first name"
+              value="{{ firstname }}"
+              [(ngModel)]="firstname"
+              name="firstname"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Last name</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your last name"
+              value="{{ lastname }}"
+              [(ngModel)]="lastname"
+              name="lastname"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your email address"
+              value="{{ email }}"
+              [(ngModel)]="email"
+              name="email"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Address</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your address"
+              value="{{ address }}"
+              [(ngModel)]="address"
+              name="address"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>ZIP</mat-label>
+            <input
+              matInput
+              type="number"
+              placeholder="Enter your zip code"
+              value="{{ zip }}"
+              [(ngModel)]="zip"
+              name="zip"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>City</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your city"
+              value="{{ city }}"
+              [(ngModel)]="city"
+              name="city"
+            />
+          </mat-form-field>
+          <mat-form-field class="full-width">
+            <mat-label>Country</mat-label>
+            <input
+              matInput
+              type="text"
+              placeholder="Enter your country"
+              value="{{ country }}"
+              [(ngModel)]="country"
+              name="country"
+            />
+          </mat-form-field>
+        </form>
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        *ngIf="!isEdit"
+        mat-flat-button
+        color="primary"
+        (click)="setEdit()"
+      >
+        Edit
+      </button>
+      <button *ngIf="isEdit" mat-flat-button (click)="cancel()">Cancel</button>
+      <button
+        *ngIf="isEdit"
+        mat-flat-button
+        color="primary"
+        (click)="onSubmit()"
+      >
+        Save
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,13 @@
+mat-card {
+  width: 400px;
+}
+
+.detail-descr {
+  font-weight: bold;
+}
+.detail-info {
+  margin-bottom: 20px;
+}
+.full-width {
+  width: 100%;
+}

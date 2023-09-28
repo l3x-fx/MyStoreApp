@@ -3,7 +3,8 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { AuthService } from '../services/auth.service';
 import { authActions } from './auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { User } from '../types/User.interface';
+import { User } from '../../shared/models/User.interface';
+import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserLoginResponse } from '../types/UserLogin.interface';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
@@ -158,7 +159,7 @@ export const editUserEffect = createEffect(
   ) => {
     return actions$.pipe(
       ofType(authActions.editUser),
-      switchMap(({ userId, data }) => {
+      switchMap(({ data }) => {
         const token = persistanceService.get('mystore-token');
 
         if (!token) {
@@ -167,7 +168,7 @@ export const editUserEffect = createEffect(
           );
         }
 
-        return authService.editCurrentUser(userId, data).pipe(
+        return authService.editCurrentUser(data).pipe(
           map((user: User) => {
             return authActions.editUserSuccess({ user });
           }),

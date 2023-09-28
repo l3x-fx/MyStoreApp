@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
-import { User } from '../types/User.interface';
+import { User } from '../../shared/models/User.interface';
 import { environment } from 'src/environments/environment';
 import {
   UserSignupRequest,
@@ -11,6 +11,7 @@ import {
   UserLoginRequest,
   UserLoginResponse,
 } from '../types/UserLogin.interface';
+import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -32,18 +33,6 @@ export class AuthService {
       .pipe(map((response) => response));
   }
 
-  editCurrentUser(userId: string, data: User): Observable<User> {
-    const url = environment.apiUrl + '/users/' + userId;
-    const token = localStorage.getItem('mystore-token');
-    if (!token) {
-      throw new Error('Token is missing.');
-    }
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http
-      .put<User>(url, data, { headers })
-      .pipe(map((response) => response));
-  }
-
   getCurrentUser(userId?: string): Observable<User> {
     const id = userId || localStorage.getItem('mystore-id');
     const url = environment.apiUrl + '/users/' + id;
@@ -53,5 +42,15 @@ export class AuthService {
     }
 
     return this.http.get<User>(url).pipe(map((response) => response));
+  }
+  editCurrentUser(data: UserEdit): Observable<User> {
+    const userId = localStorage.getItem('mystore-id');
+    const url = environment.apiUrl + '/users/' + userId;
+    const token = localStorage.getItem('mystore-token');
+    if (!token) {
+      throw new Error('Token is missing.');
+    }
+
+    return this.http.put<User>(url, data).pipe(map((response) => response));
   }
 }

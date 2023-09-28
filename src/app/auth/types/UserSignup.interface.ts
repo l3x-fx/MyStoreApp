@@ -1,9 +1,9 @@
-import { User } from './User.interface';
+import { User } from '../../shared/models/User.interface';
 
 export interface UserSignupRequest {
   user: {
     email: string;
-    fistname: string;
+    firstname: string;
     lastname: string;
     password: string;
   };

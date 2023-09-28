@@ -34,7 +34,7 @@ export class SignUpComponent {
     const request: UserSignupRequest = {
       user: {
         email: this.email,
-        fistname: this.fname,
+        firstname: this.fname,
         lastname: this.lname,
         password: this.password,
       },

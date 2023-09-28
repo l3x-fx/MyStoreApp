@@ -24,7 +24,6 @@ export class TokenInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     const token = this.persistance.get('mystore-token');
 
-    console.log('TOKEN', token);
     let req;
     if (token) {
       req = request.clone({
@@ -34,20 +33,9 @@ export class TokenInterceptor implements HttpInterceptor {
       });
     } else {
       req = request.clone();
-      console.log(req);
     }
-    return next.handle(req).pipe(
-      tap(
-        (event) => {
-          if (event instanceof HttpResponse) {
-            console.log(event.status);
-          }
-        },
-        (error) => {
-          console.error('INTERCEPTOR ERROR', error);
-        },
-      ),
-    );
+
+    return next.handle(req);
   }
 }
 

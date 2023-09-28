@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { authActions } from 'src/app/auth/store/auth.actions';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -25,18 +26,24 @@ import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
 })
 export class HeaderComponent {
   currentUser$ = this.store.select(selectCurrentUser);
+  firstname: string | undefined;
 
   @Output() sidenavToggle = new EventEmitter<void>();
   constructor(private store: Store) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.currentUser$
+      .pipe(map((currentUser) => (currentUser ? currentUser.firstname : '')))
+      .subscribe((firstname) => {
+        this.firstname = firstname;
+      });
+  }
 
   onToggleSidenav() {
     this.sidenavToggle.emit();
   }
 
   logout() {
-    console.log('LOGOUT!!!!');
     this.store.dispatch(authActions.logout());
   }
 }

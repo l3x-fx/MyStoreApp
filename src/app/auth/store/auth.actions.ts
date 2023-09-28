@@ -1,10 +1,8 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { UserSignupRequest } from '../types/UserSignup.interface';
-import {
-  UserLoginRequest,
-  UserLoginResponse,
-} from '../types/UserLogin.interface';
-import { User } from '../types/User.interface';
+import { UserLoginRequest } from '../types/UserLogin.interface';
+import { User } from '../../shared/models/User.interface';
+import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 
 export const authActions = createActionGroup({
   source: 'auth',
@@ -21,10 +19,12 @@ export const authActions = createActionGroup({
     'GetUser success': props<{ user: User }>(),
     'GetUser failure': emptyProps(),
 
-    EditUser: props<{ userId: string; data: User }>(),
+    EditUser: props<{ data: UserEdit }>(),
     'EditUser success': props<{ user: User }>(),
     'EditUser failure': props<{ errors: string }>(),
 
     Logout: emptyProps(),
+
+    ErrorReset: emptyProps(),
   },
 });

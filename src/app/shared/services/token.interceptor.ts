@@ -23,13 +23,19 @@ export class TokenInterceptor implements HttpInterceptor {
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
     const token = this.persistance.get('mystore-token');
-    console.log('TOKEN', token);
-    const req = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
 
+    console.log('TOKEN', token);
+    let req;
+    if (token) {
+      req = request.clone({
+        setHeaders: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      req = request.clone();
+      console.log(req);
+    }
     return next.handle(req).pipe(
       tap(
         (event) => {
@@ -38,8 +44,7 @@ export class TokenInterceptor implements HttpInterceptor {
           }
         },
         (error) => {
-          console.error('ERROR MESSAGE', error.status);
-          console.error(error.message);
+          console.error('INTERCEPTOR ERROR', error);
         },
       ),
     );

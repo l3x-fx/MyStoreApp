@@ -36,7 +36,7 @@
         type="text"
         matInput
         placeholder="Last Name"
-        ngModel
+        [(ngModel)]="lname"
         name="lname"
         required
         #lNameInput="ngModel"
@@ -58,7 +58,7 @@
         type="email"
         matInput
         placeholder="Your Email"
-        ngModel
+        [(ngModel)]="email"
         name="email"
         email
         required
@@ -78,7 +78,7 @@
         type="password"
         matInput
         placeholder="Your Password"
-        ngModel
+        [(ngModel)]="password"
         name="password"
         required
         minlength="6"

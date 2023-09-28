@@ -39,6 +39,7 @@ export class SignUpComponent {
         password: this.password,
       },
     };
+    console.log(request);
     this.store.dispatch(authActions.signup({ request }));
   }
 }

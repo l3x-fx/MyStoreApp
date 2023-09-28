@@ -28,12 +28,13 @@ export const signupEffect = createEffect(
               userSignupResponse.user.id,
             );
             const user = userSignupResponse.user;
+            console.log('EFFECTS USER', user);
             return authActions.signupSuccess({ user });
           }),
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               authActions.signupFailure({
-                errors: errorResponse.error.errors,
+                error: errorResponse.error.error,
               }),
             );
           }),

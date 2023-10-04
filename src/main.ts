@@ -18,10 +18,15 @@ import { appRoutes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 import { authFeatureKey, authReducer } from './app/auth/store/auth.reducer';
 import * as authEffects from './app/auth/store/auth.effects';
+import * as productsEffects from './app/products/store/products.effects';
 import {
   TokenInterceptor,
   TokenInterceptorProvider,
 } from './app/shared/services/token.interceptor';
+import {
+  productsFeatreKey,
+  productsReducer,
+} from './app/products/store/products.reducer';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -36,7 +41,9 @@ bootstrapApplication(AppComponent, {
       router: routerReducer,
     }),
     provideState(authFeatureKey, authReducer),
+    provideState(productsFeatreKey, productsReducer),
     provideEffects(authEffects),
+    provideEffects(productsEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

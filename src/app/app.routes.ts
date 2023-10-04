@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { ProductListComponent } from './products/product-list/product-list.component';
+import { ProductListComponent } from './products/components/product-list/product-list.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 
 export const appRoutes: Route[] = [
@@ -10,14 +10,14 @@ export const appRoutes: Route[] = [
   {
     path: 'product/:id',
     loadComponent: () =>
-      import('src/app/products/product-detail/product-detail.component').then(
-        (mod) => mod.ProductDetailComponent,
-      ),
+      import(
+        'src/app/products/components/product-detail/product-detail.component'
+      ).then((mod) => mod.ProductDetailComponent),
   },
   {
     path: 'cart',
     loadComponent: () =>
-      import('src/app/products/cart/cart.component').then(
+      import('src/app/products/components/cart/cart.component').then(
         (m) => m.CartComponent,
       ),
   },
@@ -49,8 +49,8 @@ export const appRoutes: Route[] = [
   {
     path: '**',
     loadComponent: () =>
-      import('src/app/products/product-list/product-list.component').then(
-        (mod) => mod.ProductListComponent,
-      ),
+      import(
+        'src/app/products/components/product-list/product-list.component'
+      ).then((mod) => mod.ProductListComponent),
   },
 ];

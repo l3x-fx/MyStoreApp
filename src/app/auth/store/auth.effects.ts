@@ -4,7 +4,6 @@ import { AuthService } from '../services/auth.service';
 import { authActions } from './auth.actions';
 import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { User } from '../../shared/models/User.interface';
-import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 import { HttpErrorResponse } from '@angular/common/http';
 import { UserLoginResponse } from '../types/UserLogin.interface';
 import { PersistanceService } from 'src/app/shared/services/persistance.service';
@@ -22,12 +21,8 @@ export const signupEffect = createEffect(
       switchMap(({ request }) => {
         return authService.signup(request).pipe(
           map((userSignupResponse: UserSignupResponse) => {
-            persistanceService.set(
-              'mystore-token',
-              'mystore-id',
-              userSignupResponse.token,
-              userSignupResponse.user.id,
-            );
+            persistanceService.set('mystore-token', userSignupResponse.token);
+            persistanceService.set('mystore-id', userSignupResponse.user.id);
             const user = userSignupResponse.user;
             console.log('EFFECTS USER', user);
             return authActions.signupSuccess({ user });
@@ -69,12 +64,8 @@ export const loginEffect = createEffect(
       switchMap(({ request }) => {
         return authService.login(request).pipe(
           map((userLoginResponse: UserLoginResponse) => {
-            persistanceService.set(
-              'mystore-token',
-              'mystore-id',
-              userLoginResponse.token,
-              userLoginResponse.user.id,
-            );
+            persistanceService.set('mystore-token', userLoginResponse.token);
+            persistanceService.set('mystore-id', userLoginResponse.user.id);
             const user = userLoginResponse.user;
             return authActions.loginSuccess({ user });
           }),

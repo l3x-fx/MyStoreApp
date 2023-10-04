@@ -1,0 +1,16 @@
+.prod {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.prodlist {
+  flex-flow: row wrap;
+}
+.prodlistitem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  padding: 15px;
+  margin: 3vw;
+}

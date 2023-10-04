@@ -1,9 +1,9 @@
 .main {
-    display: flex;
-    justify-content: center;
-    justify-items: center;
-    margin: 40px;
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  margin: 40px;
 }
 mat-sidenav {
-    width: 250px;
+  width: 250px;
 }

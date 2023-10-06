@@ -20,7 +20,7 @@ import { Store } from '@ngrx/store';
 import { selectCart } from '../products/store/products.reducer';
 import { User } from '../shared/models/User.interface';
 import { selectCurrentUser } from '../auth/store/auth.reducer';
-import { filter, take } from 'rxjs';
+import { Observable, filter, map, take } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -45,63 +45,46 @@ export class CheckoutComponent {
   itemsFormGroup!: FormGroup;
   shippingFormGroup!: FormGroup;
   paymentFormGroup!: FormGroup;
-
-  currentUser$ = this.store.select(selectCurrentUser);
-
-  user: User | undefined | null;
+  user: Observable<User | null | undefined> =
+    this.store.select(selectCurrentUser);
 
   paymentMethod: string = '';
   cardNumber: string = '';
 
   cart: Product[] = [];
 
-  @Input() amount: number;
+  amount: number = 0;
 
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
     private store: Store,
     private cartService: CartService,
-  ) {
-    this.currentUser$
-      .pipe(
-        filter((user) => !!user),
-        take(1),
-      )
-      .subscribe((user) => {
-        this.user = user;
-        console.log(this.user);
-        this.initializeFormValues();
-      });
-
-    this.amount = 0;
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.user.subscribe((user) => {
+      this.initializeFormValues(user);
+    });
+
     this.store.select(selectCart).subscribe((newCart: Product[]) => {
       this.cart = newCart;
     });
-  }
 
-  ngOnChanges() {
     this.calculateAmount();
   }
 
-  initializeFormValues(): void {
-    this.itemsFormGroup = this._formBuilder.group({
-      firstCtrl: [''],
-    });
+  initializeFormValues(user: User | null | undefined): void {
+    this.itemsFormGroup = this._formBuilder.group({});
 
     this.shippingFormGroup = this._formBuilder.group({
-      fname: [this.user?.firstname || 'LALA', Validators.required],
-      lname: [this.user?.lastname || '', Validators.required],
-      address: [this.user?.address || '', Validators.required],
-      postalCode: [this.user?.zip || '', Validators.required],
-      city: [this.user?.city || '', Validators.required],
-      country: [this.user?.country || '', Validators.required],
+      fname: [user?.firstname || '', Validators.required],
+      lname: [user?.lastname || '', Validators.required],
+      address: [user?.address || '', Validators.required],
+      postalCode: [user?.zip || '', Validators.required],
+      city: [user?.city || '', Validators.required],
+      country: [user?.country || '', Validators.required],
     });
-    console.log(this.shippingFormGroup.get('fname')?.value);
-    console.log(this.shippingFormGroup.get('city')?.value);
 
     this.paymentFormGroup = this._formBuilder.group({
       paymentMethod: ['', Validators.required],
@@ -141,10 +124,11 @@ export class CheckoutComponent {
 
   removeItem(id: number): void {
     this.cartService.removeFromCart(id);
-    alert('Item Deleted!');
+    this.calculateAmount();
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
     this.cartService.changeQuantity(payload.id, payload.quantity);
+    this.calculateAmount();
   }
 }

@@ -40,9 +40,6 @@ export class CartComponent {
       this.calculateAmount();
     });
   }
-  ngOnChanges() {
-    this.calculateAmount();
-  }
 
   calculateAmount(): void {
     this.amount = this.cart.reduce(
@@ -54,9 +51,11 @@ export class CartComponent {
   removeItem(id: number): void {
     this.cartService.removeFromCart(id);
     alert('Item Deleted!');
+    this.calculateAmount();
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
     this.cartService.changeQuantity(payload.id, payload.quantity);
+    this.calculateAmount();
   }
 }

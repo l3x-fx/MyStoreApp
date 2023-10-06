@@ -1,5 +1,4 @@
-<!-- *ngIf="amount > 0"  -->
-<mat-stepper [linear]="true" #stepper>
+<mat-stepper *ngIf="amount > 0" [linear]="true" #stepper>
   <mat-step [stepControl]="itemsFormGroup">
     <form [formGroup]="itemsFormGroup">
       <ng-template matStepLabel>Order Summary</ng-template>
@@ -12,6 +11,8 @@
         (delete)="removeItem($event)"
         (changeQuantity)="changeQuantity($event)"
       ></app-cart-item>
+      <p *ngIf="amount === 0">There are no items in your cart.</p>
+      <h2 *ngIf="amount > 0" class="cartitem">TOTAL: {{ amount }} $</h2>
       <div>
         <button mat-raised-button color="primary" matStepperNext>
           Continue to Shipping
@@ -26,6 +27,7 @@
       fxLayoutAlign="center center"
     >
       <ng-template matStepLabel>Shipping</ng-template>
+
       <mat-form-field class="full-width">
         <mat-label>First Name</mat-label>
         <input matInput type="text" required formControlName="fname" />
@@ -47,7 +49,7 @@
               <input
                 matInput
                 #postalCode
-                type="post"
+                type="text"
                 maxlength="5"
                 formControlName="postalCode"
               />
@@ -58,6 +60,7 @@
               <mat-label>City</mat-label>
               <input
                 matInput
+                type="text"
                 placeholder="San Francisco"
                 formControlName="city"
               />
@@ -127,7 +130,16 @@
     </h3>
 
     <div>
-      <button mat-raised-button color="primary">Continue Shopping</button>
+      <button mat-raised-button color="primary" routerLink="/">
+        Continue Shopping
+      </button>
     </div>
   </mat-step>
 </mat-stepper>
+
+<div *ngIf="amount <= 0" fxFlex fxLayout="column" fxLayoutAlign="center center">
+  <h2>There are no items in your cart</h2>
+  <button mat-raised-button color="primary" routerLink="/">
+    Continue Shopping
+  </button>
+</div>

@@ -1,65 +1,65 @@
 /* You can add global styles to this file, and also import other style files */
-@import url('https://fonts.googleapis.com/css2?family=Girassol&family=Raleway:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Girassol&family=Raleway:wght@400;700&display=swap");
 
 * {
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
-    font-family: 'Raleway', sans-serif;
-    font-size: 18px;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+  font-family: "Raleway", sans-serif;
+  font-size: 18px;
 }
 
 body {
-    box-sizing: border-box;
-    overflow: scroll;
-    margin: 0px;
-    padding: 0px;
+  box-sizing: border-box;
+  overflow: scroll;
+  margin: 0px;
+  padding: 0px;
 }
 .mat-typography {
-    box-sizing: border-box;
-    margin: 0px;
-    padding: 0px;
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
 }
 
 h1 {
-    font-size: 24px;
-    font-weight: 700;
+  font-size: 24px;
+  font-weight: 700;
 }
 
 h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-top: 10px;
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 10px;
 }
 
 img {
-    border-radius: 5px;
-    box-shadow: 2px 2px 5px black;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px black;
 }
 
 p {
-    padding: 5px 0px;
+  padding: 5px 0px;
 }
 
 a {
-    color: #8f4c43;
-    font-size: 14px;
-    margin: 25px 0px;
-    cursor: pointer;
+  color: #8f4c43;
+  font-size: 14px;
+  margin: 25px 0px;
+  cursor: pointer;
 }
 
 .quantity-input {
-    width: 100px;
-    padding: 4px;
-    margin: 8px 0px;
+  width: 100px;
+  padding: 4px;
+  margin: 8px 0px;
 }
 
 .btn {
-    font-size: 14px;
-    font-weight: 700;
-    padding: 8px 20px;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 20px;
 }
 
 .basic-container {
-    padding: 5px;
+  padding: 5px;
 }

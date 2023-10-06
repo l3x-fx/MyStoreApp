@@ -5,9 +5,8 @@
     </button>
   </div>
   <div class="title">MyStore</div>
-  <div class="nav" fxLayout fxFlex fxHide.xs fxLayoutGap="10px">
-    <a routerLink="/">Products</a> <span>|</span>
-    <a routerLink="/cart">Cart</a>
+  <div class="nav" fxFlex fxLayout="row" fxLayoutAlign="start center" fxHide.xs>
+    <a routerLink="/">Products</a>
   </div>
   <div
     class="nav"
@@ -18,18 +17,33 @@
     fxLayoutGap="10px"
     style="margin-right: 40px"
   >
-    <a *ngIf="!(currentUser$ | async)" routerLink="/signup">SignUp</a>
-    <span *ngIf="!(currentUser$ | async)">|</span>
-    <a *ngIf="!(currentUser$ | async)" routerLink="/login">LogIn</a>
+    <a routerLink="/cart"
+      ><mat-icon
+        fontIcon="shopping_cart"
+        matBadge="{{ itemsNumber }}"
+        matBadgeHidden="{{ itemsNumber < 1 }}"
+        matBadgeSize="small"
+        matBadgeColor="warn"
+        aria-hidden="false"
+        matBadgeDescription="Number of items in cart: {{ itemsNumber }}"
+    /></a>
+    <span>|</span>
 
-    <a *ngIf="currentUser$ | async" routerLink="/account">{{ firstname }}</a>
+    <a *ngIf="!(currentUser$ | async)" routerLink="/signup"><h2>SingUp</h2></a>
+    <span *ngIf="!(currentUser$ | async)">|</span>
+    <a *ngIf="!(currentUser$ | async)" routerLink="/login"><h2>LogIn</h2></a>
+
+    <a *ngIf="currentUser$ | async" routerLink="/account"
+      ><mat-icon fontIcon="person"
+    /></a>
+
     <span *ngIf="currentUser$ | async">|</span>
     <a
       *ngIf="currentUser$ | async"
       routerLink="/home"
       fxFlexAlign="end"
       (click)="logout()"
-      ><mat-icon fontIcon="logout"
+      ><mat-icon fontIcon="power_settings_new"
     /></a>
   </div>
 </div>

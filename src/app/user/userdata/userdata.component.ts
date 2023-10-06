@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -8,7 +8,6 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterLink } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
-import { map } from 'rxjs';
 import { User } from 'src/app/shared/models/User.interface';
 import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 import { authActions } from 'src/app/auth/store/auth.actions';

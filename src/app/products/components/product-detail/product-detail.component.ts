@@ -41,7 +41,7 @@ export class ProductDetailComponent {
 
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
-    this.cartService.addItem(finishedProduct);
+    this.cartService.addToCart(finishedProduct);
     this.router.navigate(['/']);
     alert('Product added to cart: \n' + product.name);
   }

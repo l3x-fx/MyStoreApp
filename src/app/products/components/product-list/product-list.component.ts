@@ -36,7 +36,5 @@ export class ProductListComponent implements OnInit {
     this.products$ = this.store.select(selectProducts);
   }
 
-  ngOnInit(): void {
-    this.store.dispatch(productsActions.getAll());
-  }
+  ngOnInit(): void {}
 }

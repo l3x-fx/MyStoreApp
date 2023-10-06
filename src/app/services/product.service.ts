@@ -30,7 +30,7 @@ export class ProductService {
       .select(selectProducts)
       .pipe(
         map((products) =>
-          products ? products.find((product) => product.id === id) : undefined,
+          products ? products.find((product) => product.id === id) : null,
         ),
       );
   }

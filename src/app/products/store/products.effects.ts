@@ -2,11 +2,8 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductService } from 'src/app/services/product.service';
 import { productsActions } from './products.actions';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
-import { User } from '../../shared/models/User.interface';
+import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { PersistanceService } from 'src/app/shared/services/persistance.service';
-import { Router } from '@angular/router';
 import { RawProduct } from 'src/app/shared/models/Product';
 
 export const getAllEffect = createEffect(

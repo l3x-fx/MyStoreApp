@@ -7,7 +7,7 @@ const initialState: ProductsState = {
   isLoading: false,
   products: null,
   topThree: null,
-  cart: null,
+  cart: [],
   validationErrors: null,
 };
 
@@ -51,20 +51,21 @@ const productsFeature = createFeature({
     })),
 
     //CART
-    on(productsActions.addToCart, (state) => ({
+
+    on(productsActions.initCart, (state, { cart }) => ({
       ...state,
-      isSubmitting: true,
-      validationErrors: null,
+      cart: cart,
     })),
-    on(productsActions.addToCartSuccess, (state, action) => ({
+
+    on(productsActions.addToCart, (state, { cart }) => ({
+      ...state,
+      cart: cart,
+    })),
+
+    on(productsActions.updateCart, (state, { cart }) => ({
       ...state,
       isSubmitting: false,
-      cart: action.cart,
-    })),
-    on(productsActions.addToCartFailure, (state, action) => ({
-      ...state,
-      isSubmitting: false,
-      validationErrors: action.error,
+      cart: cart,
     })),
   ),
 });

@@ -5,6 +5,6 @@ export interface ProductsState {
   isLoading: boolean;
   products: RawProduct[] | null | undefined;
   topThree: RawProduct[] | null | undefined;
-  cart: Product[] | null | undefined;
+  cart: Product[] | [];
   validationErrors: string | null;
 }

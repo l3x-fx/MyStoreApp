@@ -1,50 +1,100 @@
 import { Injectable } from '@angular/core';
 import { Product } from '../shared/models/Product';
-import { Observable, of } from 'rxjs';
+import { map, of, switchMap, take } from 'rxjs';
+import { productsActions } from '../products/store/products.actions';
+import { PersistanceService } from '../shared/services/persistance.service';
+import { Store } from '@ngrx/store';
+import { selectCart } from '../products/store/products.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartService {
-  cart: Product[] = [];
-  constructor() {}
+  item: Product[] = [];
+  newcart: Product[] = [];
+  cartKey: string = 'mystore-cart';
 
-  getCart(): Observable<Product[]> {
-    return of(this.cart);
+  constructor(
+    private store: Store,
+    private persistanceService: PersistanceService,
+  ) {}
+
+  initCart(): void {
+    const items: string | null = this.persistanceService.get('mystore-cart');
+    const itemsJson = typeof items === 'string' ? JSON.parse(items) : [];
+    this.store.dispatch(productsActions.initCart({ cart: itemsJson }));
   }
 
-  deleteItem(id: number): Product[] {
-    this.cart = this.cart.filter((product) => product.id != id);
-    return this.cart;
+  addToCart(product: Product): void {
+    const subscribtion = this.store
+      .select(selectCart)
+      .pipe(
+        take(1),
+        map((cart: Product[]) => {
+          const existingItem = cart.find((item) => item.id === product.id);
+          if (existingItem) {
+            this.changeQuantity(
+              product.id,
+              product.quantity + existingItem.quantity,
+            );
+          } else {
+            const newCart: Product[] = [...cart, product];
+            this.store.dispatch(productsActions.addToCart({ cart: newCart }));
+            this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+          }
+        }),
+      )
+      .subscribe();
+    subscribtion.unsubscribe();
   }
 
-  addItem(product: Product): Product[] {
-    if (this.cart.some((cartitem) => cartitem.id === product.id)) {
-      this.cart = this.cart.map((item) => {
-        if (item.id === product.id) {
-          item.quantity += product.quantity;
+  removeFromCart(id: number) {
+    const cartSubscribtion = this.store
+      .select(selectCart)
+      .pipe(
+        take(1),
+        map((cart: Product[]) =>
+          cart.filter((item: Product) => item.id !== id),
+        ),
+      )
+      .subscribe((newCart) => {
+        if (newCart.length >= 1) {
+          this.store.dispatch(productsActions.updateCart({ cart: newCart }));
+          this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+        } else {
+          this.store.dispatch(productsActions.updateCart({ cart: [] }));
+          this.persistanceService.remove(this.cartKey);
         }
-        return item;
       });
-    } else {
-      this.cart.push(product);
-    }
-    return this.cart;
+
+    cartSubscribtion.unsubscribe();
   }
 
-  changeQuantity(id: number, quantity: number): Product[] {
-    this.cart = this.cart.map((product) => {
-      if (product.id === id) {
-        product.quantity = quantity;
-      }
-      return product;
-    });
+  changeQuantity(id: number, quantity: number) {
+    const itemSubscribtion = this.store
+      .select(selectCart)
+      .pipe(
+        take(1),
+        switchMap((cart: Product[]) => {
+          const updatedCart = cart.map((item: Product) => {
+            if (item.id === id) {
+              return { ...item, quantity };
+            }
+            return item;
+          });
+          return of(updatedCart);
+        }),
+      )
+      .subscribe((newCart) => {
+        this.store.dispatch(productsActions.updateCart({ cart: newCart }));
+        this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+      });
 
-    return this.cart;
+    itemSubscribtion.unsubscribe();
   }
 
-  resetCart(): Product[] {
-    this.cart = [];
-    return this.cart;
+  resetCart() {
+    this.store.dispatch(productsActions.updateCart({ cart: [] }));
+    this.persistanceService.remove(this.cartKey);
   }
 }

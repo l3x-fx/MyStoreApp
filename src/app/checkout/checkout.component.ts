@@ -16,6 +16,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { CartItemComponent } from '../products/components/cart-item/cart-item.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { Store } from '@ngrx/store';
+import { selectCart } from '../products/store/products.reducer';
+import { User } from '../shared/models/User.interface';
+import { selectCurrentUser } from '../auth/store/auth.reducer';
+import { filter, take } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',
@@ -41,12 +46,9 @@ export class CheckoutComponent {
   shippingFormGroup!: FormGroup;
   paymentFormGroup!: FormGroup;
 
-  fname: string = '';
-  lname: string = '';
-  address: string = '';
-  postalCode: string = '';
-  city: string = '';
-  country: string = '';
+  currentUser$ = this.store.select(selectCurrentUser);
+
+  user: User | undefined | null;
 
   paymentMethod: string = '';
   cardNumber: string = '';
@@ -58,34 +60,53 @@ export class CheckoutComponent {
   constructor(
     private _formBuilder: FormBuilder,
     private router: Router,
+    private store: Store,
     private cartService: CartService,
   ) {
+    this.currentUser$
+      .pipe(
+        filter((user) => !!user),
+        take(1),
+      )
+      .subscribe((user) => {
+        this.user = user;
+        console.log(this.user);
+        this.initializeFormValues();
+      });
+
     this.amount = 0;
   }
 
   ngOnInit(): void {
+    this.store.select(selectCart).subscribe((newCart: Product[]) => {
+      this.cart = newCart;
+    });
+  }
+
+  ngOnChanges() {
+    this.calculateAmount();
+  }
+
+  initializeFormValues(): void {
     this.itemsFormGroup = this._formBuilder.group({
       firstCtrl: [''],
     });
+
     this.shippingFormGroup = this._formBuilder.group({
-      fname: ['', Validators.required],
-      lname: ['', Validators.required],
-      address: ['', Validators.required],
-      postalCode: ['', Validators.required],
-      city: ['', Validators.required],
-      country: ['', Validators.required],
+      fname: [this.user?.firstname || 'LALA', Validators.required],
+      lname: [this.user?.lastname || '', Validators.required],
+      address: [this.user?.address || '', Validators.required],
+      postalCode: [this.user?.zip || '', Validators.required],
+      city: [this.user?.city || '', Validators.required],
+      country: [this.user?.country || '', Validators.required],
     });
+    console.log(this.shippingFormGroup.get('fname')?.value);
+    console.log(this.shippingFormGroup.get('city')?.value);
+
     this.paymentFormGroup = this._formBuilder.group({
       paymentMethod: ['', Validators.required],
       cardNumber: ['', Validators.required],
     });
-
-    this.fname = this.shippingFormGroup.get('fname')?.value;
-    this.lname = this.shippingFormGroup.get('lname')?.value;
-    this.address = this.shippingFormGroup.get('address')?.value;
-    this.postalCode = this.shippingFormGroup.get('postalCode')?.value;
-    this.city = this.shippingFormGroup.get('city')?.value;
-    this.country = this.shippingFormGroup.get('country')?.value;
 
     this.paymentFormGroup
       .get('paymentMethod')
@@ -94,11 +115,6 @@ export class CheckoutComponent {
       });
 
     this.cardNumber = this.paymentFormGroup.get('cardNumber')?.value;
-
-    this.cartService.getCart().subscribe((newCart: Product[]) => {
-      this.cart = newCart;
-      this.calculateAmount();
-    });
   }
 
   submitForm(): void {
@@ -106,7 +122,7 @@ export class CheckoutComponent {
       this.cartService.resetCart();
       const extras: NavigationExtras = {
         queryParams: {
-          name: this.lname,
+          name: this.shippingFormGroup.get('fname')?.value,
           amount: this.amount,
         },
       };
@@ -124,13 +140,11 @@ export class CheckoutComponent {
   }
 
   removeItem(id: number): void {
-    this.cart = this.cartService.deleteItem(id);
-    this.calculateAmount();
+    this.cartService.removeFromCart(id);
     alert('Item Deleted!');
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
-    this.cart = this.cartService.changeQuantity(payload.id, payload.quantity);
-    this.calculateAmount();
+    this.cartService.changeQuantity(payload.id, payload.quantity);
   }
 }

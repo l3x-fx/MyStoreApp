@@ -9,9 +9,13 @@ import { productsActions } from './products/store/products.actions';
 import { Store } from '@ngrx/store';
 import { PersistanceService } from './shared/services/persistance.service';
 import {
+  selectCart,
   selectProducts,
   selectTopThree,
 } from './products/store/products.reducer';
+
+import { CartService } from './services/cart.service';
+import { map, take } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -31,19 +35,36 @@ export class AppComponent {
 
   constructor(
     public persistance: PersistanceService,
+    private cartService: CartService,
     private store: Store,
-  ) {}
-
-  ngOnInit() {
-    if (this.store.select(selectProducts)) {
-      this.store.dispatch(productsActions.getAll());
-    }
+  ) {
     if (this.persistance.get('mystore-token')) {
       this.store.dispatch(authActions.getUser({}));
     }
+  }
 
-    if (this.store.select(selectTopThree)) {
-      this.store.dispatch(productsActions.getTopThree());
-    }
+  ngOnInit() {
+    this.store.select(selectProducts).subscribe((products) => {
+      if (!products) {
+        this.store.dispatch(productsActions.getAll());
+      }
+    });
+    this.store.select(selectTopThree).subscribe((top3) => {
+      if (!top3) {
+        this.store.dispatch(productsActions.getTopThree());
+      }
+    });
+
+    this.store
+      .select(selectCart)
+      .pipe(
+        take(1),
+        map((cart) => {
+          if (!cart || cart.length === 0) {
+            this.cartService.initCart();
+          }
+        }),
+      )
+      .subscribe();
   }
 }

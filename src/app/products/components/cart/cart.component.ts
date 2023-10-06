@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Product } from '../../../shared/models/Product';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { CartService } from '../../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,6 +7,8 @@ import { CartItemComponent } from '../cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { selectCart } from '../../store/products.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-cart',
@@ -17,7 +18,6 @@ import { MatButtonModule } from '@angular/material/button';
     FormsModule,
     RouterLink,
     CartItemComponent,
-    MatFormFieldModule,
     FlexLayoutModule,
     MatButtonModule,
   ],
@@ -29,13 +29,19 @@ export class CartComponent {
   cart: Product[] = [];
   amount: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(
+    private cartService: CartService,
+    private store: Store,
+  ) {}
 
   ngOnInit(): void {
-    this.cartService.getCart().subscribe((newCart: Product[]) => {
+    this.store.select(selectCart).subscribe((newCart: Product[]) => {
       this.cart = newCart;
       this.calculateAmount();
     });
+  }
+  ngOnChanges() {
+    this.calculateAmount();
   }
 
   calculateAmount(): void {
@@ -46,13 +52,11 @@ export class CartComponent {
   }
 
   removeItem(id: number): void {
-    this.cart = this.cartService.deleteItem(id);
-    this.calculateAmount();
+    this.cartService.removeFromCart(id);
     alert('Item Deleted!');
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
-    this.cart = this.cartService.changeQuantity(payload.id, payload.quantity);
-    this.calculateAmount();
+    this.cartService.changeQuantity(payload.id, payload.quantity);
   }
 }

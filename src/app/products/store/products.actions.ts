@@ -14,12 +14,8 @@ export const productsActions = createActionGroup({
     'GetTopThree success': props<{ topThree: RawProduct[] }>(),
     'GetTopThree failure': props<{ error: string }>(),
 
-    AddToCart: props<{ product: Product }>(),
-    'AddToCart success': props<{ cart: [Product] }>(),
-    'AddToCart failure': props<{ error: string }>(),
-
-    RemoveFromCart: props<{ product: Product }>(),
-    'RemoveFromCart success': props<{ cart: [Product] }>(),
-    'RemoveFromCart failure': props<{ error: string }>(),
+    InitCart: props<{ cart: Product[] }>(),
+    AddToCart: props<{ cart: Product[] }>(),
+    UpdateCart: props<{ cart: Product[] }>(),
   },
 });

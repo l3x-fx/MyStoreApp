@@ -42,7 +42,7 @@ export class ProductListItemComponent {
 
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
-    this.cartService.addItem(finishedProduct);
+    this.cartService.addToCart(finishedProduct);
     alert('Product added to cart: \n' + finishedProduct.name);
   }
 }

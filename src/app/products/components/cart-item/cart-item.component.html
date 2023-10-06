@@ -13,10 +13,9 @@
           inputmode="numeric"
           id="quantity"
           min="1"
-          value="{{ cartitem.quantity }}"
+          [(ngModel)]="quantity"
           class="quantity-input"
-          [(ngModel)]="cartitem.quantity"
-          (ngModelChange)="onChangeQuantity()"
+          (change)="onChangeQuantity()"
           onkeydown="return false"
         />
       </mat-form-field>

@@ -1,4 +1,3 @@
-import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import {
   HTTP_INTERCEPTORS,
@@ -6,7 +5,6 @@ import {
   HttpHandler,
   HttpInterceptor,
   HttpRequest,
-  HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 

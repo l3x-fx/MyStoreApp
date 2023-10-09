@@ -30,12 +30,12 @@ export class CartComponent {
   amount: number = 0;
 
   constructor(
-    private cartService: CartService,
-    private store: Store,
+    private _cartService: CartService,
+    private _store: Store,
   ) {}
 
   ngOnInit(): void {
-    this.store.select(selectCart).subscribe((newCart: Product[]) => {
+    this._store.select(selectCart).subscribe((newCart: Product[]) => {
       this.cart = newCart;
       this.calculateAmount();
     });
@@ -49,13 +49,12 @@ export class CartComponent {
   }
 
   removeItem(id: number): void {
-    this.cartService.removeFromCart(id);
-    alert('Item Deleted!');
+    this._cartService.removeFromCart(id);
     this.calculateAmount();
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
-    this.cartService.changeQuantity(payload.id, payload.quantity);
+    this._cartService.changeQuantity(payload.id, payload.quantity);
     this.calculateAmount();
   }
 }

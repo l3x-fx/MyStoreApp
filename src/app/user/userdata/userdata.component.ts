@@ -28,7 +28,7 @@ import { authActions } from 'src/app/auth/store/auth.actions';
   styleUrls: ['./userdata.component.css'],
 })
 export class UserdataComponent {
-  currentUser$ = this.store.select(selectCurrentUser);
+  currentUser$ = this._store.select(selectCurrentUser);
   isEdit = false;
   user: User | null | undefined;
 
@@ -40,7 +40,7 @@ export class UserdataComponent {
   city: string = '';
   country: string = '';
 
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
   ngOnInit() {
     this.currentUser$.subscribe((res) => (this.user = res));
     if (this.user) {
@@ -69,7 +69,7 @@ export class UserdataComponent {
       city: this.city,
       country: this.country,
     };
-    this.store.dispatch(authActions.editUser({ data: editedUser }));
+    this._store.dispatch(authActions.editUser({ data: editedUser }));
     this.isEdit = false;
   }
 }

@@ -9,6 +9,12 @@ import { RouterLink } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatSnackBar,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarModule,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-list-item',
@@ -22,6 +28,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     FlexLayoutModule,
     MatButtonModule,
+    MatSnackBarModule,
+    MatButtonModule,
   ],
   templateUrl: './product-list-item.component.html',
   styleUrls: ['./product-list-item.component.css'],
@@ -29,7 +37,14 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProductListItemComponent {
   @Input() product: RawProduct;
   quantity: number = 1;
-  constructor(private cartService: CartService) {
+  durationInSec: number = 3;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
+  constructor(
+    private _cartService: CartService,
+    private _snackBar: MatSnackBar,
+  ) {
     this.product = {
       id: 0,
       name: '',
@@ -42,7 +57,15 @@ export class ProductListItemComponent {
 
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
-    this.cartService.addToCart(finishedProduct);
-    alert('Product added to cart: \n' + finishedProduct.name);
+    this._cartService.addToCart(finishedProduct);
+    this.openSnackBar();
+  }
+
+  openSnackBar() {
+    this._snackBar.open(`${this.product.name} was added tp your cart!`, 'OK', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.durationInSec * 1000,
+    });
   }
 }

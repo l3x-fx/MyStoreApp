@@ -1,22 +1,39 @@
+mat-stepper {
+  width: 90vw;
+}
+button {
+  margin: 10px;
+}
+
 .checkout-form {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 .checkout-input {
-    width: 25vw;
-    margin: 5px 0px 15px;
-    font-size: 14px;
-    padding: 5px;
+  width: 25vw;
+  margin: 5px 0px 15px;
+  font-size: 14px;
+  padding: 5px;
 }
 .full-width {
-    width: 366px;
+  width: 70vw;
 }
 
 .onethird-width {
-    width: 122px;
+  width: 100%;
 }
 .twothird-width {
-    width: 244px;
+  width: 100%;
 }
-button {
-    margin: 10px;
+
+@media only screen and (min-width: 600px) {
+  .full-width {
+    width: 600px;
+  }
+  .onethird-width {
+    width: 33%;
+    margin-right: 5px;
+  }
+  .twothird-width {
+    width: 66%;
+  }
 }

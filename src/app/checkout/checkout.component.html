@@ -1,10 +1,11 @@
-<mat-stepper *ngIf="amount > 0" [linear]="true" #stepper>
+<mat-stepper *ngIf="amount > 0" orientation="vertical" [linear]="true" #stepper>
   <mat-step [stepControl]="itemsFormGroup">
     <form [formGroup]="itemsFormGroup">
       <ng-template matStepLabel>Order Summary</ng-template>
       <app-cart-item
         fxLayout="column"
         fxLayoutAlign="center center"
+        fxLayoutAlign.gt-sm="center left"
         class="cartitem"
         *ngFor="let cartitem of cart"
         [cartitem]="cartitem"
@@ -21,11 +22,7 @@
     </form>
   </mat-step>
   <mat-step [stepControl]="shippingFormGroup">
-    <form
-      [formGroup]="shippingFormGroup"
-      fxLayout="column"
-      fxLayoutAlign="center center"
-    >
+    <form [formGroup]="shippingFormGroup" class="full-width">
       <ng-template matStepLabel>Shipping</ng-template>
 
       <mat-form-field class="full-width">
@@ -41,10 +38,32 @@
         <mat-label>Adress</mat-label>
         <input matInput type="text" required formControlName="address" />
       </mat-form-field>
-      <table cellspacing="0">
-        <tr>
-          <td>
-            <mat-form-field class="onethird-width">
+      <div>
+        <mat-form-field class="onethird-width">
+          <mat-label>Postal Code</mat-label>
+          <input
+            matInput
+            #postalCode
+            type="text"
+            maxlength="5"
+            formControlName="postalCode"
+          />
+        </mat-form-field>
+        <mat-form-field class="twothird-width">
+          <mat-label>City</mat-label>
+          <input
+            matInput
+            type="text"
+            placeholder="San Francisco"
+            formControlName="city"
+          />
+        </mat-form-field>
+      </div>
+
+      <!-- <table cellspacing="0">
+        <tr class="full-width">
+          <td class="onethird-width">
+            <mat-form-field>
               <mat-label>Postal Code</mat-label>
               <input
                 matInput
@@ -55,8 +74,8 @@
               />
             </mat-form-field>
           </td>
-          <td>
-            <mat-form-field class="twothird-width">
+          <td class="twothird-width">
+            <mat-form-field>
               <mat-label>City</mat-label>
               <input
                 matInput
@@ -67,7 +86,7 @@
             </mat-form-field>
           </td>
         </tr>
-      </table>
+      </table> -->
       <mat-form-field class="full-width">
         <mat-label>Country</mat-label>
         <input matInput type="text" required formControlName="country" />
@@ -89,7 +108,7 @@
     <form
       [formGroup]="paymentFormGroup"
       fxLayout="column"
-      fxLayoutAlign="center center"
+      fxLayoutAlign="center left"
     >
       <ng-template matStepLabel>Payment</ng-template>
       <div>

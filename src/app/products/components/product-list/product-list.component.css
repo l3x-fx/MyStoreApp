@@ -10,6 +10,5 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 250px;
   padding: 15px;
 }

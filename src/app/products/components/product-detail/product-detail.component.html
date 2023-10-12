@@ -1,8 +1,17 @@
-<div fxLayout="row" *ngIf="product$ | async as product">
-  <a routerLink="/product/{{ product.id }}">
-    <img src="{{ product.img_url }}" width="300" />
+<div
+  fxLayout.gt-sm="row"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  *ngIf="product$ | async as product"
+>
+  <a
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    routerLink="/product/{{ product.id }}"
+  >
+    <img src="{{ product.img_url }}" />
   </a>
-  <div class="item-detail" fxLayout="column" fxLayoutAlign="center start">
+  <div class="item-detail" fxLayout="column" fxLayoutAlign="center center">
     <h1>{{ product.name }}</h1>
     <p>{{ product.description }}</p>
     <p>{{ product.price }} $</p>

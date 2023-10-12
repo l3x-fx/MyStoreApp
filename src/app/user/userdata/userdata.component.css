@@ -1,5 +1,5 @@
 mat-card {
-  width: 400px;
+  width: 80vw;
 }
 
 .detail-descr {
@@ -10,4 +10,9 @@ mat-card {
 }
 .full-width {
   width: 100%;
+}
+@media only screen and (min-width: 600px) {
+  mat-card {
+    width: 400px;
+  }
 }

@@ -1,12 +1,12 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" role="navigation">
-        <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
-    </mat-sidenav>
+  <mat-sidenav #sidenav mode="over" fixedInViewport="true" role="navigation">
+    <app-sidenav (closeSidenav)="sidenav.close()"></app-sidenav>
+  </mat-sidenav>
 
-    <mat-sidenav-content>
-        <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
-        <div class="main">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
+  <mat-sidenav-content>
+    <app-header (sidenavToggle)="sidenav.toggle()"></app-header>
+    <div class="main">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
 </mat-sidenav-container>

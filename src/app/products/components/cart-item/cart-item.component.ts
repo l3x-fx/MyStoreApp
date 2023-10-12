@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
@@ -28,6 +29,7 @@ import {
     MatFormFieldModule,
     MatButtonModule,
     MatSnackBarModule,
+    MatIconModule,
   ],
   templateUrl: './cart-item.component.html',
   styleUrls: ['./cart-item.component.css'],
@@ -56,7 +58,15 @@ export class CartItemComponent implements OnInit {
     this.openSnackBar();
   }
 
-  onChangeQuantity(): void {
+  minusOne(): void {
+    this.quantity--;
+
+    const payload = { id: this.cartitem.id, quantity: this.quantity };
+    this.changeQuantity.emit(payload);
+  }
+  plusOne(): void {
+    this.quantity++;
+
     const payload = { id: this.cartitem.id, quantity: this.quantity };
     this.changeQuantity.emit(payload);
   }

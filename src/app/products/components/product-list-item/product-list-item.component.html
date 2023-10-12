@@ -1,11 +1,11 @@
 <mat-card>
   <mat-card-content fxLayout="column" fxLayoutAlign="center center">
     <a routerLink="/product/{{ product.id }}">
-      <img src="{{ product.img_url }}" width="220" />
+      <img src="{{ product.img_url }}" />
     </a>
     <h2>{{ product.name }}</h2>
-    <h3>{{ product.price }} $</h3>
-    <mat-form-field class="example-full-width">
+    <p>{{ product.price }} $</p>
+    <mat-form-field>
       <input
         type="number"
         matInput

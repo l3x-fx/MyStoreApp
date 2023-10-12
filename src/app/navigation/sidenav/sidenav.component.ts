@@ -1,41 +1,55 @@
-import {CommonModule} from '@angular/common'
-import {Component, EventEmitter, Output} from '@angular/core'
-import {FormsModule} from '@angular/forms'
-import {MatSidenavModule} from '@angular/material/sidenav'
-import {MatListModule} from '@angular/material/list'
-import {FlexLayoutModule} from '@angular/flex-layout'
-import {Subscription} from 'rxjs'
+import { CommonModule } from '@angular/common';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatListModule } from '@angular/material/list';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { Observable, Subscription, map } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
+import { selectCart } from 'src/app/products/store/products.reducer';
+import { RouterLink } from '@angular/router';
+import { authActions } from 'src/app/auth/store/auth.actions';
 
 @Component({
-    selector: 'app-sidenav',
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        MatSidenavModule,
-        MatListModule,
-        FlexLayoutModule,
-    ],
-    templateUrl: './sidenav.component.html',
-    styleUrls: ['./sidenav.component.css'],
+  selector: 'app-sidenav',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterLink,
+    MatSidenavModule,
+    MatListModule,
+    FlexLayoutModule,
+  ],
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.css'],
 })
 export class SidenavComponent {
-    @Output() closeSidenav = new EventEmitter()
-    isAuth = false
-    authSubscription: Subscription = new Subscription()
+  @Output() closeSidenav = new EventEmitter();
 
-    constructor() {}
+  currentUser$ = this._store.select(selectCurrentUser);
+  cart$ = this._store.select(selectCart);
+  itemsNumber: number = 1;
 
-    ngOnInit() {}
-    onClose() {
-        this.closeSidenav.emit()
-    }
+  constructor(private _store: Store) {}
 
-    onLogout() {
-        this.onClose()
-    }
+  ngOnInit() {
+    const authSubscription = this.cart$
+      .pipe(map((cart) => cart))
+      .subscribe((cart) =>
+        cart ? (this.itemsNumber = cart.length) : (this.itemsNumber = 0),
+      );
+  }
 
-    ngOnDestroy() {
-        this.authSubscription.unsubscribe()
-    }
+  onClose() {
+    this.closeSidenav.emit();
+  }
+
+  logout() {
+    this._store.dispatch(authActions.logout());
+    this.onClose();
+  }
+
+  ngOnDestroy() {}
 }

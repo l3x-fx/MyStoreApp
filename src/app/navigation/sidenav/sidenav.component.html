@@ -1,19 +1,34 @@
 <mat-nav-list>
-    <a mat-list-item routerLink="/products" (click)="onClose()">
-        <span class="nav-caption">Products</span>
-    </a>
+  <a mat-list-item routerLink="/" (click)="onClose()">
+    <span class="nav-caption">Products</span>
+  </a>
+  <hr />
+  <a mat-list-item routerLink="/cart" (click)="onClose()">
+    <span class="nav-caption">Cart</span>
+  </a>
 
-    <a mat-list-item routerLink="/cart" (click)="onClose()">
-        <span class="nav-caption">Cart</span>
-    </a>
-    <hr />
-    <a *ngIf="!isAuth" mat-list-item routerLink="/signup" (click)="onClose()">
-        <span class="nav-caption">SignUp</span>
-    </a>
-    <a *ngIf="!isAuth" mat-list-item routerLink="/login" (click)="onClose()">
-        <span class="nav-caption">LogIn</span>
-    </a>
-    <a *ngIf="isAuth" mat-list-item routerLink="/training" (click)="onClose()">
-        <span class="nav-caption">Training</span>
-    </a>
+  <a
+    *ngIf="!(currentUser$ | async)"
+    mat-list-item
+    routerLink="/signup"
+    (click)="onClose()"
+  >
+    <span class="nav-caption">SignUp</span>
+  </a>
+  <a
+    *ngIf="!(currentUser$ | async)"
+    mat-list-item
+    routerLink="/login"
+    (click)="onClose()"
+  >
+    <span class="nav-caption">LogIn</span>
+  </a>
+  <a
+    *ngIf="currentUser$ | async"
+    mat-list-item
+    routerLink="/home"
+    (click)="logout()"
+  >
+    <span class="nav-caption">LogOut</span>
+  </a>
 </mat-nav-list>

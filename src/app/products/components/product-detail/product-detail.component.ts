@@ -10,6 +10,12 @@ import { MatInputModule } from '@angular/material/input';
 import { Observable } from 'rxjs';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import {
+  MatSnackBar,
+  MatSnackBarModule,
+  MatSnackBarHorizontalPosition,
+  MatSnackBarVerticalPosition,
+} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-product-detail',
@@ -21,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     FlexLayoutModule,
+    MatSnackBarModule,
     MatButtonModule,
   ],
   templateUrl: './product-detail.component.html',
@@ -29,11 +36,16 @@ import { MatButtonModule } from '@angular/material/button';
 export class ProductDetailComponent {
   product$: Observable<RawProduct | null | undefined>;
   quantity: number = 1;
+  durationInSec: number = 3;
+  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
+  verticalPosition: MatSnackBarVerticalPosition = 'top';
+
   constructor(
     private productService: ProductService,
     private route: ActivatedRoute,
     private router: Router,
     private cartService: CartService,
+    private _snackBar: MatSnackBar,
   ) {
     const productId = Number(this.route.snapshot.params['id']);
     this.product$ = this.productService.getById(productId);
@@ -42,7 +54,16 @@ export class ProductDetailComponent {
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
     this.cartService.addToCart(finishedProduct);
+    console.log('NAME', product.name);
+    this.openSnackBar(product);
     this.router.navigate(['/']);
-    alert('Product added to cart: \n' + product.name);
+  }
+
+  openSnackBar(product: RawProduct) {
+    this._snackBar.open(`Item added to your cart: ${product.name}`, 'OK', {
+      horizontalPosition: this.horizontalPosition,
+      verticalPosition: this.verticalPosition,
+      duration: this.durationInSec * 1000,
+    });
   }
 }

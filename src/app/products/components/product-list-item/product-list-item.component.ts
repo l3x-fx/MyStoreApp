@@ -58,11 +58,11 @@ export class ProductListItemComponent {
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
     this._cartService.addToCart(finishedProduct);
-    this.openSnackBar();
+    this.openSnackBar(product);
   }
 
-  openSnackBar() {
-    this._snackBar.open(`${this.product.name} was added tp your cart!`, 'OK', {
+  openSnackBar(product: RawProduct) {
+    this._snackBar.open(`Item added to your cart: ${product.name}`, 'OK', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
       duration: this.durationInSec * 1000,

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router, NavigationExtras, RouterLink } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import {
@@ -20,7 +20,7 @@ import { Store } from '@ngrx/store';
 import { selectCart } from '../products/store/products.reducer';
 import { User } from '../shared/models/User.interface';
 import { selectCurrentUser } from '../auth/store/auth.reducer';
-import { Observable, filter, map, take } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-checkout',

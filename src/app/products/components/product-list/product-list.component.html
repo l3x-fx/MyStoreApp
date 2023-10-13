@@ -1,19 +1,25 @@
-<div class="prod">
-  <h1>{{ title }}</h1>
-  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+<div class="prod" fxLayout="column" fxLayoutAlign=" center start">
+  <h1>Exclusive Offers</h1>
+  <div
+    class="filter"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="15px"
+  >
     <h3>Filter:</h3>
     <mat-form-field>
       <mat-label>Category</mat-label>
       <mat-select
         [(value)]="category"
-        (selectionChange)="onCategoryChange($event.value)"
+        (selectionChange)="onCategoryChange($event)"
       >
-        <mat-option
-          *ngFor="let category of categories"
-          [value]="category.value"
-        >
-          {{ category.viewValue }}
-        </mat-option>
+        <mat-option value=""> All </mat-option>
+        <mat-divider></mat-divider>
+        <mat-option class="top" value="Top 3"> Top 3 Products </mat-option>
+        <mat-divider></mat-divider>
+        <mat-option value="Food"> Food </mat-option>
+        <mat-option value="Clothing"> Clothing </mat-option>
+        <mat-option value="Accessories"> Accessories </mat-option>
       </mat-select>
     </mat-form-field>
   </div>

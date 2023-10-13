@@ -34,16 +34,4 @@ export class ProductService {
         ),
       );
   }
-
-  getByCategory(category: string): Observable<RawProduct | null | undefined> {
-    return this.store
-      .select(selectProducts)
-      .pipe(
-        map((products) =>
-          products
-            ? products.find((product) => product.category === category)
-            : undefined,
-        ),
-      );
-  }
 }

@@ -1,7 +1,24 @@
 <div class="prod">
   <h1>{{ title }}</h1>
+  <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="15px">
+    <h3>Filter:</h3>
+    <mat-form-field>
+      <mat-label>Category</mat-label>
+      <mat-select
+        [(value)]="category"
+        (selectionChange)="onCategoryChange($event.value)"
+      >
+        <mat-option
+          *ngFor="let category of categories"
+          [value]="category.value"
+        >
+          {{ category.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
   <div
-    *ngIf="products$ | async as products"
+    *ngIf="products"
     class="prodlist"
     fxLayout="row"
     layout-wrap

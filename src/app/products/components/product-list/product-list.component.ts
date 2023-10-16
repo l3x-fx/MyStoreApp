@@ -3,7 +3,7 @@ import { RawProduct } from 'src/app/shared/models/Product';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
 import { selectProducts, selectTopThree } from '../../store/products.reducer';
 import { Store } from '@ngrx/store';
@@ -13,6 +13,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { Category } from '../../types/category.interface';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -36,38 +37,52 @@ export class ProductListComponent implements OnInit {
   allProducts: RawProduct[] | null | undefined;
   products: RawProduct[] | null | undefined;
 
-  categories: Category[] = [
-    { value: 'Top 3', viewValue: 'Top 3' },
-    { value: '', viewValue: '-----' },
-    { value: '', viewValue: 'All' },
-    { value: 'Food', viewValue: 'Food' },
-    { value: 'Clothing', viewValue: 'Clothing' },
-    { value: 'Accessories', viewValue: 'Accessories' },
-  ];
-
   category: string | null = null;
 
-  constructor(private _store: Store) {}
+  constructor(
+    private _store: Store,
+    private _route: ActivatedRoute,
+    private _router: Router,
+  ) {
+    this._route.queryParams
+      .pipe(filter((params) => params['category']))
+      .subscribe((param) => {
+        const cat = param['category'];
+        this.category = cat.charAt(0).toUpperCase() + cat.slice(1);
+
+        if (this.category === 'Top3') {
+          this.products = this.topThree;
+        } else {
+          this.products = this.allProducts?.filter(
+            (products) => products.category === this.category,
+          );
+        }
+      });
+
+    this._route.queryParams
+      .pipe(filter((params) => !params['category']))
+      .subscribe(() => {
+        this.products = this.allProducts;
+      });
+  }
 
   ngOnInit(): void {
     this._store.select(selectProducts).subscribe((products) => {
       this.allProducts = products;
       this.products = this.allProducts;
     });
+
     this._store.select(selectTopThree).subscribe((topThree) => {
       this.topThree = topThree;
     });
   }
 
   onCategoryChange($event: MatSelectChange) {
-    if ($event.value == 'Top 3') {
-      this.products = this.topThree;
-    } else {
-      this.products = $event.value
-        ? this.allProducts?.filter(
-            (products) => products.category === this.category,
-          )
-        : this.allProducts;
-    }
+    $event.value
+      ? this._router.navigate([], {
+          relativeTo: this._route,
+          queryParams: { category: $event.value },
+        })
+      : this._router.navigate([]);
   }
 }

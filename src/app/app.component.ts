@@ -21,7 +21,6 @@ import { IntroSheetComponent } from './shared/components/intro-sheet/intro-sheet
 import {
   MatBottomSheet,
   MatBottomSheetModule,
-  MatBottomSheetRef,
 } from '@angular/material/bottom-sheet';
 
 @Component({
@@ -77,15 +76,15 @@ export class AppComponent {
       )
       .subscribe();
 
-    this._store.select(selectIsShownIntro).subscribe((intro) => {
-      this.introShown = intro;
-    });
+    //   this._store.select(selectIsShownIntro).subscribe((intro) => {
+    //     this.introShown = intro;
+    //   });
 
-    if (!this.introShown) {
-      this.openBottomSheet();
-    }
-  }
-  openBottomSheet(): void {
-    this._bottomSheet.open(IntroSheetComponent);
+    //   if (!this.introShown) {
+    //     this.openBottomSheet();
+    //   }
+    // }
+    // openBottomSheet(): void {
+    //   this._bottomSheet.open(IntroSheetComponent);
   }
 }

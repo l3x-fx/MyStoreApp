@@ -44,8 +44,8 @@ export class CartItemComponent implements OnInit {
 
   quantity: number = 0;
   durationInSec = 3;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   constructor(private _snackBar: MatSnackBar) {}
 
@@ -73,7 +73,7 @@ export class CartItemComponent implements OnInit {
 
   openSnackBar() {
     this._snackBar.open(
-      `${this.cartitem.name} was removed from your cart`,
+      `Item removed from your cart: ${this.cartitem.name}`,
       'OK',
       {
         horizontalPosition: this.horizontalPosition,

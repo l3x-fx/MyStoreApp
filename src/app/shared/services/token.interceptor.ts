@@ -14,13 +14,13 @@ import { PersistanceService } from 'src/app/shared/services/persistance.service'
   providedIn: 'root',
 })
 export class TokenInterceptor implements HttpInterceptor {
-  constructor(public persistance: PersistanceService) {}
+  constructor(private _persistance: PersistanceService) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const token = this.persistance.get('mystore-token');
+    const token = this._persistance.get('mystore-token');
 
     let req;
     if (token) {

@@ -37,23 +37,23 @@ export class ProductDetailComponent {
   product$: Observable<RawProduct | null | undefined>;
   quantity: number = 1;
   durationInSec: number = 3;
-  horizontalPosition: MatSnackBarHorizontalPosition = 'end';
-  verticalPosition: MatSnackBarVerticalPosition = 'top';
+  horizontalPosition: MatSnackBarHorizontalPosition = 'center';
+  verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 
   constructor(
-    private productService: ProductService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private cartService: CartService,
+    private _productService: ProductService,
+    public route: ActivatedRoute,
+    public router: Router,
+    private _cartService: CartService,
     private _snackBar: MatSnackBar,
   ) {
     const productId = Number(this.route.snapshot.params['id']);
-    this.product$ = this.productService.getById(productId);
+    this.product$ = this._productService.getById(productId);
   }
 
   addToCart(product: RawProduct): void {
     const finishedProduct: Product = { ...product, quantity: this.quantity };
-    this.cartService.addToCart(finishedProduct);
+    this._cartService.addToCart(finishedProduct);
     console.log('NAME', product.name);
     this.openSnackBar(product);
     this.router.navigate(['/']);

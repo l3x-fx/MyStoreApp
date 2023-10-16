@@ -47,14 +47,14 @@ export class ProductListComponent implements OnInit {
 
   category: string | null = null;
 
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
 
   ngOnInit(): void {
-    this.store.select(selectProducts).subscribe((products) => {
+    this._store.select(selectProducts).subscribe((products) => {
       this.allProducts = products;
       this.products = this.allProducts;
     });
-    this.store.select(selectTopThree).subscribe((topThree) => {
+    this._store.select(selectTopThree).subscribe((topThree) => {
       this.topThree = topThree;
     });
   }

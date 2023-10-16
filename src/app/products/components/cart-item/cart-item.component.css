@@ -69,6 +69,9 @@ mat-icon {
   height: 100%;
   grid-area: del;
 }
+.item-del mat-icon {
+  cursor: pointer;
+}
 .item-price {
   display: flex;
   height: 100%;

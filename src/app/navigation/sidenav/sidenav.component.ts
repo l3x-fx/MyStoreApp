@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { Observable, Subscription, map } from 'rxjs';
+import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
 import { selectCart } from 'src/app/products/store/products.reducer';
@@ -35,7 +35,7 @@ export class SidenavComponent {
   constructor(private _store: Store) {}
 
   ngOnInit() {
-    const authSubscription = this.cart$
+    this.cart$
       .pipe(map((cart) => cart))
       .subscribe((cart) =>
         cart ? (this.itemsNumber = cart.length) : (this.itemsNumber = 0),
@@ -50,6 +50,4 @@ export class SidenavComponent {
     this._store.dispatch(authActions.logout());
     this.onClose();
   }
-
-  ngOnDestroy() {}
 }

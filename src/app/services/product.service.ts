@@ -11,22 +11,22 @@ import { Store } from '@ngrx/store';
 })
 export class ProductService {
   constructor(
-    private http: HttpClient,
-    private store: Store,
+    private _http: HttpClient,
+    private _store: Store,
   ) {}
 
   getAll(): Observable<RawProduct[]> {
     const url = environment.apiUrl + '/products';
-    return this.http.get<RawProduct[]>(url).pipe(map((response) => response));
+    return this._http.get<RawProduct[]>(url).pipe(map((response) => response));
   }
 
   getTopThree(): Observable<RawProduct[]> {
     const url = environment.apiUrl + '/products/stats/topThree';
-    return this.http.get<RawProduct[]>(url).pipe(map((response) => response));
+    return this._http.get<RawProduct[]>(url).pipe(map((response) => response));
   }
 
   getById(id: number): Observable<RawProduct | null | undefined> {
-    return this.store
+    return this._store
       .select(selectProducts)
       .pipe(
         map((products) =>

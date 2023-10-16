@@ -17,18 +17,18 @@ import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private _http: HttpClient) {}
 
   signup(data: UserSignupRequest): Observable<UserSignupResponse> {
     const url = environment.apiUrl + '/signup';
-    return this.http
+    return this._http
       .post<UserSignupResponse>(url, data)
       .pipe(map((response) => response));
   }
 
   login(data: UserLoginRequest): Observable<UserLoginResponse> {
     const url = environment.apiUrl + '/login';
-    return this.http
+    return this._http
       .post<UserLoginResponse>(url, data)
       .pipe(map((response) => response));
   }
@@ -41,7 +41,7 @@ export class AuthService {
       throw new Error('Token is missing.');
     }
 
-    return this.http.get<User>(url).pipe(map((response) => response));
+    return this._http.get<User>(url).pipe(map((response) => response));
   }
   editCurrentUser(data: UserEdit): Observable<User> {
     const userId = localStorage.getItem('mystore-id');
@@ -51,6 +51,6 @@ export class AuthService {
       throw new Error('Token is missing.');
     }
 
-    return this.http.put<User>(url, data).pipe(map((response) => response));
+    return this._http.put<User>(url, data).pipe(map((response) => response));
   }
 }

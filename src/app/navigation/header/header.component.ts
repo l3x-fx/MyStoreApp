@@ -28,12 +28,12 @@ import { selectCart } from 'src/app/products/store/products.reducer';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
-  currentUser$ = this.store.select(selectCurrentUser);
-  cart$ = this.store.select(selectCart);
+  currentUser$ = this._store.select(selectCurrentUser);
+  cart$ = this._store.select(selectCart);
   itemsNumber: number = 1;
 
   @Output() sidenavToggle = new EventEmitter<void>();
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
 
   ngOnInit() {
     this.cart$
@@ -48,6 +48,6 @@ export class HeaderComponent {
   }
 
   logout() {
-    this.store.dispatch(authActions.logout());
+    this._store.dispatch(authActions.logout());
   }
 }

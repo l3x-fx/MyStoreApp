@@ -28,7 +28,7 @@ export class SignUpComponent {
   fname: string = '';
   email: string = '';
   password: string = '';
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
 
   onSubmit() {
     const request: UserSignupRequest = {
@@ -40,6 +40,6 @@ export class SignUpComponent {
       },
     };
     console.log(request);
-    this.store.dispatch(authActions.signup({ request }));
+    this._store.dispatch(authActions.signup({ request }));
   }
 }

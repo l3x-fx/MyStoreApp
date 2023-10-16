@@ -7,6 +7,7 @@ import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 export const authActions = createActionGroup({
   source: 'auth',
   events: {
+    Intro: emptyProps(),
     Signup: props<{ request: UserSignupRequest }>(),
     'Signup success': props<{ user: User }>(),
     'Signup failure': props<{ error: string }>(),

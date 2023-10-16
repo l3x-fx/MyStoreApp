@@ -15,18 +15,18 @@ export class CartService {
   cartKey: string = 'mystore-cart';
 
   constructor(
-    private store: Store,
-    private persistanceService: PersistanceService,
+    private _store: Store,
+    private _persistanceService: PersistanceService,
   ) {}
 
   initCart(): void {
-    const items: string | null = this.persistanceService.get('mystore-cart');
+    const items: string | null = this._persistanceService.get('mystore-cart');
     const itemsJson = typeof items === 'string' ? JSON.parse(items) : [];
-    this.store.dispatch(productsActions.initCart({ cart: itemsJson }));
+    this._store.dispatch(productsActions.initCart({ cart: itemsJson }));
   }
 
   addToCart(product: Product): void {
-    const subscribtion = this.store
+    const subscribtion = this._store
       .select(selectCart)
       .pipe(
         take(1),
@@ -39,8 +39,8 @@ export class CartService {
             );
           } else {
             const newCart: Product[] = [...cart, product];
-            this.store.dispatch(productsActions.addToCart({ cart: newCart }));
-            this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+            this._store.dispatch(productsActions.addToCart({ cart: newCart }));
+            this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
           }
         }),
       )
@@ -49,7 +49,7 @@ export class CartService {
   }
 
   removeFromCart(id: number) {
-    const cartSubscribtion = this.store
+    const cartSubscribtion = this._store
       .select(selectCart)
       .pipe(
         take(1),
@@ -59,11 +59,11 @@ export class CartService {
       )
       .subscribe((newCart) => {
         if (newCart.length >= 1) {
-          this.store.dispatch(productsActions.updateCart({ cart: newCart }));
-          this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+          this._store.dispatch(productsActions.updateCart({ cart: newCart }));
+          this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
         } else {
-          this.store.dispatch(productsActions.updateCart({ cart: [] }));
-          this.persistanceService.remove(this.cartKey);
+          this._store.dispatch(productsActions.updateCart({ cart: [] }));
+          this._persistanceService.remove(this.cartKey);
         }
       });
 
@@ -71,7 +71,7 @@ export class CartService {
   }
 
   changeQuantity(id: number, quantity: number) {
-    const itemSubscribtion = this.store
+    const itemSubscribtion = this._store
       .select(selectCart)
       .pipe(
         take(1),
@@ -86,15 +86,15 @@ export class CartService {
         }),
       )
       .subscribe((newCart) => {
-        this.store.dispatch(productsActions.updateCart({ cart: newCart }));
-        this.persistanceService.set(this.cartKey, JSON.stringify(newCart));
+        this._store.dispatch(productsActions.updateCart({ cart: newCart }));
+        this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
       });
 
     itemSubscribtion.unsubscribe();
   }
 
   resetCart() {
-    this.store.dispatch(productsActions.updateCart({ cart: [] }));
-    this.persistanceService.remove(this.cartKey);
+    this._store.dispatch(productsActions.updateCart({ cart: [] }));
+    this._persistanceService.remove(this.cartKey);
   }
 }

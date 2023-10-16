@@ -3,6 +3,7 @@ import { authActions } from './auth.actions';
 import { AuthState } from '../types/authState.interface';
 
 const initialState: AuthState = {
+  isShownIntro: false,
   isSubmitting: false,
   isLoading: false,
   currentUser: null,
@@ -13,7 +14,11 @@ const authFeature = createFeature({
   name: 'auth',
   reducer: createReducer(
     initialState,
-
+    //INTRO
+    on(authActions.intro, (state) => ({
+      ...state,
+      isShownIntro: true,
+    })),
     //SIGNUP
     on(authActions.signup, (state) => ({
       ...state,
@@ -101,6 +106,7 @@ const authFeature = createFeature({
 export const {
   name: authFeatureKey,
   reducer: authReducer,
+  selectIsShownIntro,
   selectIsSubmitting,
   selectIsLoading,
   selectCurrentUser,

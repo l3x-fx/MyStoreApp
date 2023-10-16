@@ -33,10 +33,10 @@ export class LogInComponent {
   password: string = '';
 
   data$ = combineLatest({
-    isSubmitting: this.store.select(selectIsSubmitting),
-    backendErrors: this.store.select(selectValidationErrors),
+    isSubmitting: this._store.select(selectIsSubmitting),
+    backendErrors: this._store.select(selectValidationErrors),
   });
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
 
   ngOnInit() {}
 
@@ -44,6 +44,6 @@ export class LogInComponent {
     const request: UserLoginRequest = {
       user: { email: this.email, password: this.password },
     };
-    this.store.dispatch(authActions.login({ request }));
+    this._store.dispatch(authActions.login({ request }));
   }
 }

@@ -31,7 +31,7 @@ import { UserdataComponent } from '../userdata/userdata.component';
   styleUrls: ['./account.component.css'],
 })
 export class AccountComponent {
-  currentUser$ = this.store.select(selectCurrentUser);
+  currentUser$ = this._store.select(selectCurrentUser);
   isEdit = false;
   user: User | null | undefined;
 
@@ -43,7 +43,7 @@ export class AccountComponent {
   city: string = '';
   country: string = '';
 
-  constructor(private store: Store) {}
+  constructor(private _store: Store) {}
   ngOnInit() {
     this.currentUser$.subscribe((res) => (this.user = res));
     if (this.user) {
@@ -72,7 +72,7 @@ export class AccountComponent {
       city: this.city,
       country: this.country,
     };
-    this.store.dispatch(authActions.editUser({ data: editedUser }));
+    this._store.dispatch(authActions.editUser({ data: editedUser }));
     this.isEdit = false;
   }
 }

@@ -46,7 +46,7 @@ export class CheckoutComponent {
   shippingFormGroup!: FormGroup;
   paymentFormGroup!: FormGroup;
   user: Observable<User | null | undefined> =
-    this.store.select(selectCurrentUser);
+    this._store.select(selectCurrentUser);
 
   paymentMethod: string = '';
   cardNumber: string = '';
@@ -57,9 +57,9 @@ export class CheckoutComponent {
 
   constructor(
     private _formBuilder: FormBuilder,
-    private router: Router,
-    private store: Store,
-    private cartService: CartService,
+    public router: Router,
+    private _store: Store,
+    private _cartService: CartService,
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class CheckoutComponent {
       this.initializeFormValues(user);
     });
 
-    this.store.select(selectCart).subscribe((newCart: Product[]) => {
+    this._store.select(selectCart).subscribe((newCart: Product[]) => {
       this.cart = newCart;
     });
 
@@ -102,7 +102,7 @@ export class CheckoutComponent {
 
   submitForm(): void {
     if (this.amount > 0) {
-      this.cartService.resetCart();
+      this._cartService.resetCart();
       const extras: NavigationExtras = {
         queryParams: {
           name: this.shippingFormGroup.get('fname')?.value,
@@ -123,12 +123,12 @@ export class CheckoutComponent {
   }
 
   removeItem(id: number): void {
-    this.cartService.removeFromCart(id);
+    this._cartService.removeFromCart(id);
     this.calculateAmount();
   }
 
   changeQuantity(payload: { id: number; quantity: number }): void {
-    this.cartService.changeQuantity(payload.id, payload.quantity);
+    this._cartService.changeQuantity(payload.id, payload.quantity);
     this.calculateAmount();
   }
 }

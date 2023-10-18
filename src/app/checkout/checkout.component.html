@@ -12,8 +12,8 @@
         (delete)="removeItem($event)"
         (changeQuantity)="changeQuantity($event)"
       ></app-cart-item>
-      <p *ngIf="amount === 0">There are no items in your cart.</p>
-      <h2 *ngIf="amount > 0" class="cartitem">TOTAL: {{ amount }} $</h2>
+      <p *ngIf="cart.length === 0">There are no items in your cart.</p>
+      <h2 *ngIf="cart.length !== 0" class="cartitem">TOTAL: {{ amount }} $</h2>
       <div>
         <button mat-raised-button color="primary" matStepperNext>
           Continue to Shipping
@@ -102,6 +102,7 @@
       <div>
         <button mat-raised-button matStepperPrevious>Back</button>
         <button
+          *ngIf="cart.length !== 0"
           matStepperNext
           mat-raised-button
           color="primary"

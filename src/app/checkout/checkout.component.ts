@@ -17,10 +17,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CartItemComponent } from '../products/components/cart-item/cart-item.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
-import { selectCart } from '../products/store/products.reducer';
+import {
+  selectCart,
+  selectLatestOrderNumber,
+} from '../products/store/products.reducer';
 import { User } from '../shared/models/User.interface';
 import { selectCurrentUser } from '../auth/store/auth.reducer';
 import { Observable } from 'rxjs';
+import { productsActions } from '../products/store/products.actions';
 
 @Component({
   selector: 'app-checkout',
@@ -52,6 +56,7 @@ export class CheckoutComponent {
   cardNumber: string = '';
 
   cart: Product[] = [];
+  orderNumber: number = 0;
 
   amount: number = 0;
 
@@ -72,6 +77,10 @@ export class CheckoutComponent {
     });
 
     this.calculateAmount();
+
+    this._store
+      .select(selectLatestOrderNumber)
+      .subscribe((latestOrderNumber) => (this.orderNumber = latestOrderNumber));
   }
 
   initializeFormValues(user: User | null | undefined): void {
@@ -130,5 +139,9 @@ export class CheckoutComponent {
   changeQuantity(payload: { id: number; quantity: number }): void {
     this._cartService.changeQuantity(payload.id, payload.quantity);
     this.calculateAmount();
+  }
+
+  submitOrder(): void {
+    this._store.dispatch(productsActions.postOrder({ cart: this.cart }));
   }
 }

@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Product } from '../shared/models/Product';
-import { map, of, switchMap, take } from 'rxjs';
+import { Observable, map, of, switchMap, take } from 'rxjs';
 import { productsActions } from '../products/store/products.actions';
 import { PersistanceService } from '../shared/services/persistance.service';
+import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
 import { selectCart } from '../products/store/products.reducer';
 
@@ -13,10 +15,12 @@ export class CartService {
   item: Product[] = [];
   newcart: Product[] = [];
   cartKey: string = 'mystore-cart';
+  IDKey: string = 'mystore-id';
 
   constructor(
     private _store: Store,
     private _persistanceService: PersistanceService,
+    private _http: HttpClient,
   ) {}
 
   initCart(): void {
@@ -96,5 +100,11 @@ export class CartService {
   resetCart() {
     this._store.dispatch(productsActions.updateCart({ cart: [] }));
     this._persistanceService.remove(this.cartKey);
+  }
+
+  submitOrder(data: Product[]): Observable<number> {
+    const id = this._persistanceService.get(this.IDKey);
+    const url = environment.apiUrl + '/orders/' + id;
+    return this._http.post<number>(url, data).pipe(map((response) => response));
   }
 }

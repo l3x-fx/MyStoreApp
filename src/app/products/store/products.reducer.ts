@@ -8,6 +8,7 @@ const initialState: ProductsState = {
   products: null,
   topThree: null,
   cart: [],
+  latestOrderNumber: 0,
   validationErrors: null,
 };
 
@@ -16,7 +17,7 @@ const productsFeature = createFeature({
   reducer: createReducer(
     initialState,
 
-    //ALL_PRODUCTS
+    //Get ALL_PRODUCTS
     on(productsActions.getAll, (state) => ({
       ...state,
       isSubmitting: true,
@@ -33,7 +34,7 @@ const productsFeature = createFeature({
       validationErrors: action.error,
     })),
 
-    //TOP_5
+    //Get TOP_5
     on(productsActions.getTopThree, (state) => ({
       ...state,
       isSubmitting: true,
@@ -45,6 +46,23 @@ const productsFeature = createFeature({
       topThree: action.topThree,
     })),
     on(productsActions.getTopThreeFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      validationErrors: action.error,
+    })),
+
+    //Post ORDER
+    on(productsActions.postOrder, (state) => ({
+      ...state,
+      isSubmitting: true,
+    })),
+    on(productsActions.postOrderSuccess, (state, { orderNumber }) => ({
+      ...state,
+      isSubmitting: false,
+      cart: [],
+      latestOrderNumber: orderNumber,
+    })),
+    on(productsActions.postOrderFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
       validationErrors: action.error,
@@ -77,5 +95,6 @@ export const {
   selectIsLoading,
   selectProducts,
   selectTopThree,
+  selectLatestOrderNumber,
   selectCart,
 } = productsFeature;

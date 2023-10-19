@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { ProductListComponent } from './products/components/product-list/product-list.component';
-import { CheckoutComponent } from './checkout/checkout.component';
+import { CheckoutComponent } from './user/components/checkout/checkout.component';
 
 export const appRoutes: Route[] = [
   {

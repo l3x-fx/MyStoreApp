@@ -14,17 +14,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { CartItemComponent } from '../user/components/cart-item/cart-item.component';
+import { CartItemComponent } from '../cart-item/cart-item.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import {
   selectCart,
   selectLatestOrderNumber,
-} from '../products/store/products.reducer';
-import { User } from '../shared/models/User.interface';
-import { selectCurrentUser } from '../auth/store/auth.reducer';
+} from '../../../products/store/products.reducer';
+import { User } from '../../../shared/models/User.interface';
+import { selectCurrentUser } from '../../../auth/store/auth.reducer';
 import { Observable } from 'rxjs';
-import { productsActions } from '../products/store/products.actions';
+import { productsActions } from '../../../products/store/products.actions';
 
 @Component({
   selector: 'app-checkout',

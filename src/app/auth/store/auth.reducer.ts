@@ -3,7 +3,7 @@ import { authActions } from './auth.actions';
 import { AuthState } from '../types/authState.interface';
 
 const initialState: AuthState = {
-  isShownIntro: false,
+  isShownIntro: true,
   isSubmitting: false,
   isLoading: false,
   currentUser: null,

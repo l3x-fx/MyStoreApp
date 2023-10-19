@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { Product } from '../../../shared/models/Product';
-import { CartService } from '../../../services/cart.service';
+import { Product } from '../../../shared/models/Product.interface';
+import { CartService } from '../../services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { CartItemComponent } from '../cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { selectCart } from '../../../products/store/products.reducer';
 import { Store } from '@ngrx/store';
+import { selectCart } from '../../store/user.reducer';
 
 @Component({
   selector: 'app-cart',

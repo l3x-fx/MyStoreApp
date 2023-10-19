@@ -1,4 +1,4 @@
-import { createFeature, createReducer, createSelector, on } from '@ngrx/store';
+import { createFeature, createReducer, on } from '@ngrx/store';
 import { UserState } from '../types/userState.interface';
 import { userActions } from './user.actions';
 
@@ -6,15 +6,31 @@ const initialState: UserState = {
   isSubmitting: false,
   isLoading: false,
   cart: [],
+  pastOrders: [],
   latestOrderNumber: 0,
   validationErrors: null,
 };
 
-const productsFeature = createFeature({
+const userFeature = createFeature({
   name: 'user',
   reducer: createReducer(
     initialState,
+    //Get PAST ORDERS
+    on(userActions.getPastOrders, (state) => ({
+      ...state,
+      isSubmitting: true,
+    })),
+    on(userActions.getPastOrdersSuccess, (state, { orders }) => ({
+      ...state,
+      isSubmitting: false,
+      pastOrders: orders,
+    })),
 
+    on(userActions.getPastOrdersFailure, (state, action) => ({
+      ...state,
+      isSubmitting: false,
+      validationErrors: action.error,
+    })),
     //Post ORDER
     on(userActions.postOrder, (state) => ({
       ...state,
@@ -53,10 +69,11 @@ const productsFeature = createFeature({
 });
 
 export const {
-  name: productsFeatreKey,
-  reducer: productsReducer,
+  name: userFeatureKey,
+  reducer: userReducer,
   selectIsSubmitting,
   selectIsLoading,
+  selectPastOrders,
   selectLatestOrderNumber,
   selectCart,
-} = productsFeature;
+} = userFeature;

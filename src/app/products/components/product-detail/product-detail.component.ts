@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { Product, RawProduct } from 'src/app/shared/models/Product';
+import { Product, RawProduct } from 'src/app/shared/models/Product.interface';
 import { ProductService } from 'src/app/services/product.service';
-import { CartService } from 'src/app/services/cart.service';
+import { CartService } from 'src/app/user/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';

@@ -7,8 +7,6 @@ const initialState: ProductsState = {
   isLoading: false,
   products: null,
   topThree: null,
-  cart: [],
-  latestOrderNumber: 0,
   validationErrors: null,
 };
 
@@ -50,51 +48,14 @@ const productsFeature = createFeature({
       isSubmitting: false,
       validationErrors: action.error,
     })),
-
-    //Post ORDER
-    on(productsActions.postOrder, (state) => ({
-      ...state,
-      isSubmitting: true,
-    })),
-    on(productsActions.postOrderSuccess, (state, { orderNumber }) => ({
-      ...state,
-      isSubmitting: false,
-      cart: [],
-      latestOrderNumber: orderNumber,
-    })),
-    on(productsActions.postOrderFailure, (state, action) => ({
-      ...state,
-      isSubmitting: false,
-      validationErrors: action.error,
-    })),
-
-    //CART
-
-    on(productsActions.initCart, (state, { cart }) => ({
-      ...state,
-      cart: cart,
-    })),
-
-    on(productsActions.addToCart, (state, { cart }) => ({
-      ...state,
-      cart: cart,
-    })),
-
-    on(productsActions.updateCart, (state, { cart }) => ({
-      ...state,
-      isSubmitting: false,
-      cart: cart,
-    })),
   ),
 });
 
 export const {
-  name: productsFeatreKey,
+  name: productsFeatureKey,
   reducer: productsReducer,
   selectIsSubmitting,
   selectIsLoading,
   selectProducts,
   selectTopThree,
-  selectLatestOrderNumber,
-  selectCart,
 } = productsFeature;

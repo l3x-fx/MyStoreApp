@@ -12,6 +12,8 @@ import { User } from 'src/app/shared/models/User.interface';
 import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 import { authActions } from 'src/app/auth/store/auth.actions';
 import { UserdataComponent } from '../userdata/userdata.component';
+import { userActions } from '../../store/user.actions';
+import { OrderlistComponent } from '../orderlist/orderlist.component';
 
 @Component({
   selector: 'app-account',
@@ -25,6 +27,7 @@ import { UserdataComponent } from '../userdata/userdata.component';
     RouterLink,
     FlexLayoutModule,
     UserdataComponent,
+    OrderlistComponent,
   ],
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css'],
@@ -54,6 +57,7 @@ export class AccountComponent {
       this.city = this.user.city;
       this.country = this.user.country;
     }
+    this._store.dispatch(userActions.getPastOrders());
   }
   setEdit() {
     this.isEdit = true;

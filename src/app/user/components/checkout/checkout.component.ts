@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Router, NavigationExtras, RouterLink } from '@angular/router';
-import { CartService } from 'src/app/services/cart.service';
+import { CartService } from 'src/app/user/services/cart.service';
 import {
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { Product } from 'src/app/shared/models/Product';
+import { Product } from 'src/app/shared/models/Product.interface';
 import { CommonModule } from '@angular/common';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,14 +17,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { CartItemComponent } from '../cart-item/cart-item.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
-import {
-  selectCart,
-  selectLatestOrderNumber,
-} from '../../../products/store/products.reducer';
 import { User } from '../../../shared/models/User.interface';
 import { selectCurrentUser } from '../../../auth/store/auth.reducer';
 import { Observable } from 'rxjs';
 import { productsActions } from '../../../products/store/products.actions';
+import { selectCart, selectLatestOrderNumber } from '../../store/user.reducer';
+import { userActions } from '../../store/user.actions';
 
 @Component({
   selector: 'app-checkout',
@@ -142,6 +140,6 @@ export class CheckoutComponent {
   }
 
   submitOrder(): void {
-    this._store.dispatch(productsActions.postOrder({ cart: this.cart }));
+    this._store.dispatch(userActions.postOrder({ cart: this.cart }));
   }
 }

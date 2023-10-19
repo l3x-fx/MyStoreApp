@@ -9,8 +9,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { authActions } from 'src/app/auth/store/auth.actions';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
-import { Observable, map } from 'rxjs';
-import { selectCart } from 'src/app/products/store/products.reducer';
+import { map } from 'rxjs';
+import { selectCart } from 'src/app/user/store/user.reducer';
 
 @Component({
   selector: 'app-header',

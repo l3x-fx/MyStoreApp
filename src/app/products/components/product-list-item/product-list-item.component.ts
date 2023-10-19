@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Product, RawProduct } from 'src/app/shared/models/Product';
-import { CartService } from 'src/app/services/cart.service';
+import { Product, RawProduct } from 'src/app/shared/models/Product.interface';
+import { CartService } from 'src/app/user/services/cart.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';

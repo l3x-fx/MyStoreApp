@@ -5,7 +5,6 @@ import { provideRouter } from '@angular/router';
 import {
   HTTP_INTERCEPTORS,
   provideHttpClient,
-  withInterceptors,
   withInterceptorsFromDi,
 } from '@angular/common/http';
 
@@ -19,14 +18,16 @@ import { AppComponent } from './app/app.component';
 import { authFeatureKey, authReducer } from './app/auth/store/auth.reducer';
 import * as authEffects from './app/auth/store/auth.effects';
 import * as productsEffects from './app/products/store/products.effects';
+import * as userEffects from './app/user/store/user effects';
 import {
   TokenInterceptor,
   TokenInterceptorProvider,
 } from './app/shared/services/token.interceptor';
 import {
-  productsFeatreKey,
+  productsFeatureKey,
   productsReducer,
 } from './app/products/store/products.reducer';
+import { userFeatureKey, userReducer } from './app/user/store/user.reducer';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -41,9 +42,11 @@ bootstrapApplication(AppComponent, {
       router: routerReducer,
     }),
     provideState(authFeatureKey, authReducer),
-    provideState(productsFeatreKey, productsReducer),
+    provideState(productsFeatureKey, productsReducer),
+    provideState(userFeatureKey, userReducer),
     provideEffects(authEffects),
     provideEffects(productsEffects),
+    provideEffects(userEffects),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

@@ -1,1 +1,4 @@
-<p>orderlist works!</p>
+<h1>Order List</h1>
+<app-order-item *ngFor="let order of pastOrders$ | async" [order]="order">
+  <p>Order ID: {{ order.id }}</p>
+</app-order-item>

@@ -7,9 +7,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
-import { selectCart } from 'src/app/products/store/products.reducer';
 import { RouterLink } from '@angular/router';
 import { authActions } from 'src/app/auth/store/auth.actions';
+import { selectCart } from 'src/app/user/store/user.reducer';
 
 @Component({
   selector: 'app-sidenav',

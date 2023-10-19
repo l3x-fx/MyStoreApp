@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Product } from '../shared/models/Product';
+import { Product } from '../../shared/models/Product.interface';
 import { Observable, map, of, switchMap, take } from 'rxjs';
-import { productsActions } from '../products/store/products.actions';
-import { PersistanceService } from '../shared/services/persistance.service';
+import { PersistanceService } from '../../shared/services/persistance.service';
 import { environment } from 'src/environments/environment';
 import { Store } from '@ngrx/store';
-import { selectCart } from '../products/store/products.reducer';
+import { selectCart } from '../store/user.reducer';
+import { userActions } from '../store/user.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class CartService {
   initCart(): void {
     const items: string | null = this._persistanceService.get('mystore-cart');
     const itemsJson = typeof items === 'string' ? JSON.parse(items) : [];
-    this._store.dispatch(productsActions.initCart({ cart: itemsJson }));
+    this._store.dispatch(userActions.initCart({ cart: itemsJson }));
   }
 
   addToCart(product: Product): void {
@@ -43,7 +43,7 @@ export class CartService {
             );
           } else {
             const newCart: Product[] = [...cart, product];
-            this._store.dispatch(productsActions.addToCart({ cart: newCart }));
+            this._store.dispatch(userActions.addToCart({ cart: newCart }));
             this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
           }
         }),
@@ -63,10 +63,10 @@ export class CartService {
       )
       .subscribe((newCart) => {
         if (newCart.length >= 1) {
-          this._store.dispatch(productsActions.updateCart({ cart: newCart }));
+          this._store.dispatch(userActions.updateCart({ cart: newCart }));
           this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
         } else {
-          this._store.dispatch(productsActions.updateCart({ cart: [] }));
+          this._store.dispatch(userActions.updateCart({ cart: [] }));
           this._persistanceService.remove(this.cartKey);
         }
       });
@@ -90,7 +90,7 @@ export class CartService {
         }),
       )
       .subscribe((newCart) => {
-        this._store.dispatch(productsActions.updateCart({ cart: newCart }));
+        this._store.dispatch(userActions.updateCart({ cart: newCart }));
         this._persistanceService.set(this.cartKey, JSON.stringify(newCart));
       });
 
@@ -98,7 +98,7 @@ export class CartService {
   }
 
   resetCart() {
-    this._store.dispatch(productsActions.updateCart({ cart: [] }));
+    this._store.dispatch(userActions.updateCart({ cart: [] }));
     this._persistanceService.remove(this.cartKey);
   }
 

@@ -9,12 +9,11 @@ import { productsActions } from './products/store/products.actions';
 import { Store } from '@ngrx/store';
 import { PersistanceService } from './shared/services/persistance.service';
 import {
-  selectCart,
   selectProducts,
   selectTopThree,
 } from './products/store/products.reducer';
 
-import { CartService } from './services/cart.service';
+import { CartService } from './user/services/cart.service';
 import { map, take } from 'rxjs';
 import { selectIsShownIntro } from './auth/store/auth.reducer';
 import { IntroSheetComponent } from './shared/components/intro-sheet/intro-sheet.component';
@@ -22,6 +21,7 @@ import {
   MatBottomSheet,
   MatBottomSheetModule,
 } from '@angular/material/bottom-sheet';
+import { selectCart } from './user/store/user.reducer';
 
 @Component({
   selector: 'app-root',

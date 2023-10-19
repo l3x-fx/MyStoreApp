@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RawProduct } from '../shared/models/Product';
+import { RawProduct } from '../shared/models/Product.interface';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';

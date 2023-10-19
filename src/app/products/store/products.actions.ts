@@ -1,5 +1,5 @@
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
-import { Product, RawProduct } from 'src/app/shared/models/Product';
+import { Product, RawProduct } from 'src/app/shared/models/Product.interface';
 
 export const productsActions = createActionGroup({
   source: 'products',
@@ -11,13 +11,5 @@ export const productsActions = createActionGroup({
     GetTopThree: emptyProps(),
     'GetTopThree success': props<{ topThree: RawProduct[] }>(),
     'GetTopThree failure': props<{ error: string }>(),
-
-    postOrder: props<{ cart: Product[] }>(),
-    'postOrder success': props<{ orderNumber: number }>(),
-    'postOrder failure': props<{ error: string }>(),
-
-    InitCart: props<{ cart: Product[] }>(),
-    AddToCart: props<{ cart: Product[] }>(),
-    UpdateCart: props<{ cart: Product[] }>(),
   },
 });

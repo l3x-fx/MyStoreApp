@@ -1,1 +1,18 @@
-<p>order-item works!</p>
+<mat-expansion-panel hideToggle>
+  <mat-expansion-panel-header fxLayout="row" fxLayoutAlign="center center">
+    <mat-panel-title fxLayout="row" fxLayoutAlign="flex-start space-evenly">
+      <h3>Order #{{ order.id }}</h3>
+    </mat-panel-title>
+    <mat-panel-description fxLayout="row" fxLayoutAlign="flex-end center">
+      {{ order.date }}
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+  <p fxLayoutAlign="flex-end center">Status: {{ order.status }}</p>
+  <div class="productbox" *ngFor="let product of products">
+    <a class="prodname" routerLink="/product/{{ product.id }}">{{
+      product.name
+    }}</a>
+    <p class="prodquant">{{ product.quantity }} pcs</p>
+    <p class="prodprice">{{ product.price }} USD</p>
+  </div>
+</mat-expansion-panel>

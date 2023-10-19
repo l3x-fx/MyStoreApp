@@ -3,11 +3,12 @@ import { selectPastOrders } from '../../store/user.reducer';
 import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
 import { OrderItemComponent } from '../order-item/order-item.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @Component({
   selector: 'app-orderlist',
   standalone: true,
-  imports: [CommonModule, OrderItemComponent],
+  imports: [CommonModule, OrderItemComponent, MatExpansionModule],
   templateUrl: './orderlist.component.html',
   styleUrls: ['./orderlist.component.css'],
 })

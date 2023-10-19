@@ -1,0 +1,38 @@
+mat-expansion-panel-header {
+  background: rgb(243, 243, 243);
+}
+
+h3 {
+  font-weight: 600;
+  margin: 0;
+}
+
+.productbox {
+  display: grid;
+  grid-template-columns: 4fr 1fr 2fr;
+}
+
+.prodname {
+  text-decoration: none;
+  padding: 0;
+  margin: 0;
+  font-weight: 600;
+  color: black;
+}
+
+.prodquant {
+  padding: 0;
+  margin: 0;
+}
+
+mat-expansion-panel-header {
+  padding: 0;
+}
+
+mat-panel-title {
+  margin-left: 1em;
+}
+
+mat-panel-description {
+  margin-right: 1em;
+}

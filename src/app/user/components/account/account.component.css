@@ -1,13 +1,13 @@
-mat-card {
-  width: 400px;
+h1 {
+  text-align: center;
 }
-
-.detail-descr {
-  font-weight: bold;
+.infos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2em;
 }
-.detail-info {
-  margin-bottom: 20px;
-}
-.full-width {
-  width: 100%;
+@media only screen and (min-width: 900px) {
+  .infos {
+    grid-template-columns: 1fr 1fr;
+  }
 }

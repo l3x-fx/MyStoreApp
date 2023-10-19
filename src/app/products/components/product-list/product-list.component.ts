@@ -12,7 +12,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { Category } from '../../types/category.interface';
 import { filter } from 'rxjs';
 
 @Component({

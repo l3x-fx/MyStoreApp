@@ -37,7 +37,7 @@ import {
 export class ProductListItemComponent {
   @Input() product: RawProduct;
   quantity: number = 1;
-  durationInSec: number = 30;
+  durationInSec: number = 3;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
 

@@ -14,7 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
-import { CartItemComponent } from '../products/components/cart-item/cart-item.component';
+import { CartItemComponent } from '../user/components/cart-item/cart-item.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import {

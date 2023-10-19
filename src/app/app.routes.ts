@@ -17,7 +17,7 @@ export const appRoutes: Route[] = [
   {
     path: 'cart',
     loadComponent: () =>
-      import('src/app/products/components/cart/cart.component').then(
+      import('src/app/user/components/cart/cart.component').then(
         (m) => m.CartComponent,
       ),
   },
@@ -42,7 +42,7 @@ export const appRoutes: Route[] = [
   {
     path: 'account',
     loadComponent: () =>
-      import('src/app/user/account/account.component').then(
+      import('src/app/user/components/account/account.component').then(
         (m) => m.AccountComponent,
       ),
   },

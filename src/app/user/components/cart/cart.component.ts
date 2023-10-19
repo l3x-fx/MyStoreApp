@@ -7,7 +7,7 @@ import { CartItemComponent } from '../cart-item/cart-item.component';
 import { RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
-import { selectCart } from '../../store/products.reducer';
+import { selectCart } from '../../../products/store/products.reducer';
 import { Store } from '@ngrx/store';
 
 @Component({

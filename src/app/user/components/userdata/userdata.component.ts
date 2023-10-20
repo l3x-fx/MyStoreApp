@@ -11,6 +11,11 @@ import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
 import { User } from 'src/app/shared/models/User.interface';
 import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
 import { authActions } from 'src/app/auth/store/auth.actions';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
+import {
+  selectErrors,
+  selectIsSubmitting,
+} from '../../../auth/store/auth.reducer';
 
 @Component({
   selector: 'app-userdata',
@@ -23,14 +28,16 @@ import { authActions } from 'src/app/auth/store/auth.actions';
     MatInputModule,
     RouterLink,
     FlexLayoutModule,
+    LoadingComponent,
   ],
   templateUrl: './userdata.component.html',
   styleUrls: ['./userdata.component.css'],
 })
 export class UserdataComponent {
-  currentUser$ = this._store.select(selectCurrentUser);
   isEdit = false;
   user: User | null | undefined;
+  isSubmitting: boolean = false;
+  error: string | null = '';
 
   firstname: string = '';
   lastname: string = '';
@@ -42,23 +49,33 @@ export class UserdataComponent {
 
   constructor(private _store: Store) {}
   ngOnInit() {
-    this.currentUser$.subscribe((res) => (this.user = res));
-    if (this.user) {
-      this.firstname = this.user.firstname;
-      this.lastname = this.user.lastname;
-      this.email = this.user.email;
-      this.address = this.user.address;
-      this.zip = this.user.zip;
-      this.city = this.user.city;
-      this.country = this.user.country;
-    }
+    this._store.select(selectCurrentUser).subscribe((user) => {
+      if (user) {
+        this.user = user;
+        this.firstname = user.firstname;
+        this.lastname = user.lastname;
+        this.email = user.email;
+        this.address = user.address;
+        this.zip = user.zip;
+        this.city = user.city;
+        this.country = user.country;
+      }
+    });
+
+    this._store
+      .select(selectIsSubmitting)
+      .subscribe((submit) => (this.isSubmitting = submit));
+    this._store.select(selectErrors).subscribe((err) => (this.error = err));
   }
+
   setEdit() {
     this.isEdit = true;
   }
+
   cancel() {
     this.isEdit = false;
   }
+
   onSubmit() {
     const editedUser: UserEdit = {
       firstname: this.firstname,

@@ -1,4 +1,5 @@
-<div *ngIf="currentUser$ | async as currentUser">
+<div class="noorder" *ngIf="isSubmitting"><app-loading></app-loading></div>
+<div *ngIf="!isSubmitting && user">
   <mat-card>
     <mat-card-header>
       <mat-card-title>User Data</mat-card-title>
@@ -6,19 +7,19 @@
     <mat-card-content>
       <div *ngIf="!isEdit" fxFlex fxLayout="column">
         <div class="detail-descr">First name:</div>
-        <div class="detail-info">{{ currentUser.firstname }}</div>
+        <div class="detail-info">{{ user.firstname }}</div>
         <div class="detail-descr">Last name:</div>
-        <div class="detail-info">{{ currentUser.lastname }}</div>
+        <div class="detail-info">{{ user.lastname }}</div>
         <div class="detail-descr">Email:</div>
-        <div class="detail-info">{{ currentUser.email }}</div>
+        <div class="detail-info">{{ user.email }}</div>
         <div class="detail-descr">Address:</div>
-        <div class="detail-info">{{ currentUser.address || "--" }}</div>
+        <div class="detail-info">{{ user.address || "--" }}</div>
         <div class="detail-descr">Zip:</div>
-        <div class="detail-info">{{ currentUser.zip || "--" }}</div>
+        <div class="detail-info">{{ user.zip || "--" }}</div>
         <div class="detail-descr">city:</div>
-        <div class="detail-info">{{ currentUser.city || "--" }}</div>
+        <div class="detail-info">{{ user.city || "--" }}</div>
         <div class="detail-descr">country:</div>
-        <div class="detail-info">{{ currentUser.country || "--" }}</div>
+        <div class="detail-info">{{ user.country || "--" }}</div>
       </div>
       <div *ngIf="isEdit" fxFlex fxLayout="column">
         <form class="example-form">

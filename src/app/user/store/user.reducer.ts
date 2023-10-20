@@ -8,7 +8,7 @@ const initialState: UserState = {
   cart: [],
   pastOrders: [],
   latestOrderNumber: 0,
-  validationErrors: null,
+  errors: null,
 };
 
 const userFeature = createFeature({
@@ -18,18 +18,18 @@ const userFeature = createFeature({
     //Get PAST ORDERS
     on(userActions.getPastOrders, (state) => ({
       ...state,
-      isSubmitting: true,
+      isLoading: true,
     })),
     on(userActions.getPastOrdersSuccess, (state, { orders }) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
       pastOrders: orders,
     })),
 
     on(userActions.getPastOrdersFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
-      validationErrors: action.error,
+      isLoading: false,
+      errors: action.error,
     })),
     //Post ORDER
     on(userActions.postOrder, (state) => ({
@@ -45,7 +45,7 @@ const userFeature = createFeature({
     on(userActions.postOrderFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.error,
+      errors: action.error,
     })),
 
     //CART
@@ -73,6 +73,7 @@ export const {
   reducer: userReducer,
   selectIsSubmitting,
   selectIsLoading,
+  selectErrors,
   selectPastOrders,
   selectLatestOrderNumber,
   selectCart,

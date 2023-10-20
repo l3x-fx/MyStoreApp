@@ -1,7 +1,12 @@
 mat-card {
   width: 80vw;
 }
-
+.noorder {
+  border-radius: 5px;
+  box-shadow: 0px 1px 1px grey;
+  padding: 15px;
+  width: 80vw;
+}
 .detail-descr {
   font-weight: bold;
 }
@@ -13,6 +18,9 @@ mat-card {
 }
 @media only screen and (min-width: 600px) {
   mat-card {
+    width: 400px;
+  }
+  .noorder {
     width: 400px;
   }
 }

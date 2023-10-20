@@ -7,5 +7,5 @@ export interface UserState {
   cart: Product[] | [];
   pastOrders: Order[] | [];
   latestOrderNumber: number;
-  validationErrors: string | null;
+  errors: string | null;
 }

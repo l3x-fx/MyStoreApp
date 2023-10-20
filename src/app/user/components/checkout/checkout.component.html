@@ -1,4 +1,5 @@
 <mat-stepper *ngIf="amount > 0" orientation="vertical" [linear]="true" #stepper>
+  <!-- ORDER SUMMARY -->
   <mat-step [stepControl]="itemsFormGroup">
     <form [formGroup]="itemsFormGroup">
       <ng-template matStepLabel>Order Summary</ng-template>
@@ -21,6 +22,7 @@
       </div>
     </form>
   </mat-step>
+  <!-- ADDRESS -->
   <mat-step [stepControl]="shippingFormGroup">
     <form [formGroup]="shippingFormGroup" class="full-width">
       <ng-template matStepLabel>Shipping</ng-template>
@@ -77,8 +79,11 @@
       </div>
     </form>
   </mat-step>
+  <!-- PAYMENT -->
   <mat-step [stepControl]="paymentFormGroup">
+    <div *ngIf="submitting"><app-loading></app-loading></div>
     <form
+      *ngIf="!submitting"
       [formGroup]="paymentFormGroup"
       fxLayout="column"
       fxLayoutAlign="center left"
@@ -114,6 +119,7 @@
       </div>
     </form>
   </mat-step>
+  <!-- DONE -->
   <mat-step>
     <ng-template matStepLabel>Done!</ng-template>
     <h1>Your order #{{ orderNumber }} was succesfully sent!</h1>

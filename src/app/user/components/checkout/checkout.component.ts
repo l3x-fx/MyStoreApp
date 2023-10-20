@@ -20,9 +20,14 @@ import { Store } from '@ngrx/store';
 import { User } from '../../../shared/models/User.interface';
 import { selectCurrentUser } from '../../../auth/store/auth.reducer';
 import { Observable } from 'rxjs';
-import { productsActions } from '../../../products/store/products.actions';
-import { selectCart, selectLatestOrderNumber } from '../../store/user.reducer';
+
+import {
+  selectCart,
+  selectIsSubmitting,
+  selectLatestOrderNumber,
+} from '../../store/user.reducer';
 import { userActions } from '../../store/user.actions';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-checkout',
@@ -38,6 +43,7 @@ import { userActions } from '../../store/user.actions';
     MatInputModule,
     MatButtonModule,
     FlexLayoutModule,
+    LoadingComponent,
   ],
   templateUrl: './checkout.component.html',
 
@@ -55,7 +61,7 @@ export class CheckoutComponent {
 
   cart: Product[] = [];
   orderNumber: number = 0;
-
+  submitting: boolean = true;
   amount: number = 0;
 
   constructor(
@@ -70,7 +76,7 @@ export class CheckoutComponent {
       this.initializeFormValues(user);
     });
 
-    this._store.select(selectCart).subscribe((newCart: Product[]) => {
+    this._store.select(selectCart).subscribe((newCart) => {
       this.cart = newCart;
     });
 
@@ -79,6 +85,10 @@ export class CheckoutComponent {
     this._store
       .select(selectLatestOrderNumber)
       .subscribe((latestOrderNumber) => (this.orderNumber = latestOrderNumber));
+
+    this._store
+      .select(selectIsSubmitting)
+      .subscribe((submitting) => (this.submitting = submitting));
   }
 
   initializeFormValues(user: User | null | undefined): void {

@@ -1,4 +1,13 @@
+<div class="noorder" *ngIf="pastOrders.length === 0 && !isLoading">
+  <h2>No orders yet!</h2>
+  <a routerLink="/"
+    ><button mat-raised-button color="primary">Start Shopping</button></a
+  >
+</div>
+<div class="noorder" *ngIf="pastOrders.length === 0 && isLoading">
+  <app-loading></app-loading>
+</div>
 <mat-accordion>
-  <app-order-item *ngFor="let order of pastOrders$ | async" [order]="order">
+  <app-order-item *ngFor="let order of pastOrders" [order]="order">
   </app-order-item>
 </mat-accordion>

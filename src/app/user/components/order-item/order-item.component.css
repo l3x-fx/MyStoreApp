@@ -9,7 +9,15 @@ h3 {
 
 .productbox {
   display: grid;
-  grid-template-columns: 4fr 1fr 2fr;
+  grid-template-columns: 2fr 1fr 2fr;
+}
+.descr {
+  text-decoration: underline;
+}
+@media only screen and (min-width: 500px) {
+  .productbox {
+    grid-template-columns: 4fr 1fr 2fr;
+  }
 }
 
 .prodname {

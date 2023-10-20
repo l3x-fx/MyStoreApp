@@ -7,12 +7,17 @@
       {{ order.date }}
     </mat-panel-description>
   </mat-expansion-panel-header>
-  <p fxLayoutAlign="flex-end center">Status: {{ order.status }}</p>
+
+  <div class="productbox descr">
+    <a class="prodname">Status:{{ order.status }}</a>
+    <p class="prodquant">QTY</p>
+    <p class="prodprice">TOTAL</p>
+  </div>
   <div class="productbox" *ngFor="let product of products">
     <a class="prodname" routerLink="/product/{{ product.id }}">{{
       product.name
     }}</a>
     <p class="prodquant">{{ product.quantity }} pcs</p>
-    <p class="prodprice">{{ product.price }} USD</p>
+    <p class="prodprice">{{ product.price * product.quantity }} USD</p>
   </div>
 </mat-expansion-panel>

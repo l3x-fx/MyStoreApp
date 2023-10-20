@@ -6,7 +6,14 @@
   <a mat-list-item routerLink="/cart" (click)="onClose()">
     <span class="nav-caption">MyCart</span>
   </a>
-
+  <a
+    *ngIf="currentUser$ | async"
+    mat-list-item
+    routerLink="/account"
+    (click)="onClose()"
+  >
+    <span class="nav-caption">MyAccount</span>
+  </a>
   <a
     *ngIf="!(currentUser$ | async)"
     mat-list-item

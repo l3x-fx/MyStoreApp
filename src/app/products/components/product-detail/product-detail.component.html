@@ -1,5 +1,8 @@
-<div *ngIf="loading && product === null">
+<div *ngIf="loading && !product">
   <app-loading></app-loading>
+</div>
+<div *ngIf="(error || !product) && !loading">
+  <app-error [error]="error"></app-error>
 </div>
 <div
   fxLayout.gt-sm="row"

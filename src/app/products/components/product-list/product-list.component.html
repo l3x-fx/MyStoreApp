@@ -1,6 +1,9 @@
 <div *ngIf="loading"><app-loading></app-loading></div>
+<div *ngIf="(error || !products) && !loading">
+  <app-error [error]="error"></app-error>
+</div>
 <div
-  *ngIf="!loading"
+  *ngIf="(!loading && products) || topThree"
   class="prod"
   fxLayout="column"
   fxLayoutAlign=" center start"

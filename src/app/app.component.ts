@@ -8,10 +8,7 @@ import { authActions } from './auth/store/auth.actions';
 import { productsActions } from './products/store/products.actions';
 import { Store } from '@ngrx/store';
 import { PersistanceService } from './shared/services/persistance.service';
-import {
-  selectProducts,
-  selectTopThree,
-} from './products/store/products.reducer';
+import { selectProducts } from './products/store/products.reducer';
 
 import { CartService } from './user/services/cart.service';
 import { map, take } from 'rxjs';
@@ -56,11 +53,6 @@ export class AppComponent {
     this._store.select(selectProducts).subscribe((products) => {
       if (!products) {
         this._store.dispatch(productsActions.getAll());
-      }
-    });
-    this._store.select(selectTopThree).subscribe((top3) => {
-      if (!top3) {
-        this._store.dispatch(productsActions.getTopThree());
       }
     });
 

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RawProduct } from 'src/app/shared/models/Product.interface';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -6,6 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
 import {
+  selectErrors,
   selectIsLoading,
   selectProducts,
   selectTopThree,
@@ -16,8 +17,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
-import { filter } from 'rxjs';
+import { filter, take } from 'rxjs';
 import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
+import { productsActions } from '../../store/products.actions';
 
 @Component({
   selector: 'app-product-list',
@@ -33,6 +36,7 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
     MatSelectModule,
     MatDividerModule,
     LoadingComponent,
+    ErrorComponent,
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
@@ -43,6 +47,7 @@ export class ProductListComponent implements OnInit {
   products: RawProduct[] | null | undefined;
   category: string | null = null;
   loading: boolean = true;
+  error: string | null = null;
 
   constructor(
     private _store: Store,
@@ -58,7 +63,12 @@ export class ProductListComponent implements OnInit {
         this.category = cat.charAt(0).toUpperCase() + cat.slice(1);
 
         if (this.category === 'Top3') {
-          this.products = this.topThree;
+          this._store.select(selectTopThree).subscribe((top3) => {
+            if (!top3) {
+              this._store.dispatch(productsActions.getTopThree());
+            }
+            this.products = top3;
+          });
         } else {
           this.products = this.allProducts?.filter(
             (products) => products.category === this.category,
@@ -84,6 +94,8 @@ export class ProductListComponent implements OnInit {
     this._store
       .select(selectIsLoading)
       .subscribe((loading) => (this.loading = loading));
+
+    this._store.select(selectErrors).subscribe((err) => (this.error = err));
   }
 
   onCategoryChange($event: MatSelectChange) {

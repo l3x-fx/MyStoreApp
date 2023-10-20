@@ -20,9 +20,11 @@ import { Store } from '@ngrx/store';
 import { User } from '../../../shared/models/User.interface';
 import { selectCurrentUser } from '../../../auth/store/auth.reducer';
 import { Observable } from 'rxjs';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 import {
   selectCart,
+  selectErrors,
   selectIsSubmitting,
   selectLatestOrderNumber,
 } from '../../store/user.reducer';
@@ -44,6 +46,7 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
     MatButtonModule,
     FlexLayoutModule,
     LoadingComponent,
+    ErrorComponent,
   ],
   templateUrl: './checkout.component.html',
 
@@ -62,6 +65,7 @@ export class CheckoutComponent {
   cart: Product[] = [];
   orderNumber: number = 0;
   submitting: boolean = true;
+  error: string | null = null;
   amount: number = 0;
 
   constructor(
@@ -89,6 +93,8 @@ export class CheckoutComponent {
     this._store
       .select(selectIsSubmitting)
       .subscribe((submitting) => (this.submitting = submitting));
+
+    this._store.select(selectErrors).subscribe((err) => (this.error = err));
   }
 
   initializeFormValues(user: User | null | undefined): void {
@@ -115,21 +121,6 @@ export class CheckoutComponent {
       });
 
     this.cardNumber = this.paymentFormGroup.get('cardNumber')?.value;
-  }
-
-  submitForm(): void {
-    if (this.amount > 0) {
-      this._cartService.resetCart();
-      const extras: NavigationExtras = {
-        queryParams: {
-          name: this.shippingFormGroup.get('fname')?.value,
-          amount: this.amount,
-        },
-      };
-      this.router.navigate(['/confirm'], extras);
-    } else {
-      alert('Your Cart is empty!');
-    }
   }
 
   calculateAmount(): void {

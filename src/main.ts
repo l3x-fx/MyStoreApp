@@ -23,6 +23,7 @@ import {
   TokenInterceptor,
   TokenInterceptorProvider,
 } from './app/shared/services/token.interceptor';
+
 import {
   productsFeatureKey,
   productsReducer,
@@ -34,6 +35,7 @@ bootstrapApplication(AppComponent, {
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
     provideHttpClient(withInterceptorsFromDi()),
     TokenInterceptorProvider,
+
     provideRouter(appRoutes),
     provideAnimations(),
     importProvidersFrom(),

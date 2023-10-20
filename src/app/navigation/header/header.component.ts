@@ -11,6 +11,7 @@ import { Store } from '@ngrx/store';
 import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
 import { map } from 'rxjs';
 import { selectCart } from 'src/app/user/store/user.reducer';
+import { AboutComponent } from 'src/app/shared/components/about/about.component';
 
 @Component({
   selector: 'app-header',
@@ -23,6 +24,7 @@ import { selectCart } from 'src/app/user/store/user.reducer';
     RouterLink,
     FlexLayoutModule,
     MatBadgeModule,
+    AboutComponent,
   ],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],

@@ -82,6 +82,7 @@
   <!-- PAYMENT -->
   <mat-step [stepControl]="paymentFormGroup">
     <div *ngIf="submitting"><app-loading></app-loading></div>
+
     <form
       *ngIf="!submitting"
       [formGroup]="paymentFormGroup"
@@ -119,20 +120,30 @@
       </div>
     </form>
   </mat-step>
-  <!-- DONE -->
+  <!-- DONE / ERROR -->
   <mat-step>
-    <ng-template matStepLabel>Done!</ng-template>
-    <h1>Your order #{{ orderNumber }} was succesfully sent!</h1>
-    <h3>Thank you for using MyStore.</h3>
-    <h3>
-      Please consider visiting my GitHub for further Front-End and Fullstack
-      projects!
-    </h3>
+    <ng-template matStepLabel
+      ><span *ngIf="error">ERROR</span
+      ><span *ngIf="!error">Done!</span></ng-template
+    >
 
-    <div>
-      <button mat-raised-button color="primary" routerLink="/">
-        Continue Shopping
-      </button>
+    <div *ngIf="error && !submitting">
+      <app-error [error]="error"></app-error>
+    </div>
+
+    <div *ngIf="!error">
+      <h1>Your order #{{ orderNumber }} was succesfully sent!</h1>
+      <h3>Thank you for using MyStore.</h3>
+      <h3>
+        Please consider visiting my GitHub for further Front-End and Fullstack
+        projects!
+      </h3>
+
+      <div>
+        <button mat-raised-button color="primary" routerLink="/">
+          Continue Shopping
+        </button>
+      </div>
     </div>
   </mat-step>
 </mat-stepper>

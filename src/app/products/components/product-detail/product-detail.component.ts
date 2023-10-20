@@ -17,8 +17,9 @@ import {
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
 import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
-import { selectIsLoading } from '../../store/products.reducer';
+import { selectErrors, selectIsLoading } from '../../store/products.reducer';
 import { Store } from '@ngrx/store';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 @Component({
   selector: 'app-product-detail',
@@ -33,6 +34,7 @@ import { Store } from '@ngrx/store';
     MatSnackBarModule,
     MatButtonModule,
     LoadingComponent,
+    ErrorComponent,
   ],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
@@ -44,6 +46,7 @@ export class ProductDetailComponent {
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
   loading: boolean = true;
+  error: string | null = null;
 
   constructor(
     private _productService: ProductService,
@@ -63,6 +66,10 @@ export class ProductDetailComponent {
     this._store
       .select(selectIsLoading)
       .subscribe((loading) => (this.loading = loading));
+
+    this._store.select(selectErrors).subscribe((err) => {
+      this.error = err;
+    });
   }
 
   addToCart(product: RawProduct): void {

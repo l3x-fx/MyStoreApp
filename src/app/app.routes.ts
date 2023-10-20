@@ -1,6 +1,7 @@
 import { Route } from '@angular/router';
 import { ProductListComponent } from './products/components/product-list/product-list.component';
 import { CheckoutComponent } from './user/components/checkout/checkout.component';
+import { AboutComponent } from './shared/components/about/about.component';
 
 export const appRoutes: Route[] = [
   {
@@ -45,6 +46,10 @@ export const appRoutes: Route[] = [
       import('src/app/user/components/account/account.component').then(
         (m) => m.AccountComponent,
       ),
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
   },
   {
     path: '**',

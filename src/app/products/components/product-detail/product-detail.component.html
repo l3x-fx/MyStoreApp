@@ -1,8 +1,11 @@
+<div *ngIf="loading && product === null">
+  <app-loading></app-loading>
+</div>
 <div
   fxLayout.gt-sm="row"
   fxLayout="column"
   fxLayoutAlign="center center"
-  *ngIf="product$ | async as product"
+  *ngIf="product"
 >
   <a
     fxLayout="row"

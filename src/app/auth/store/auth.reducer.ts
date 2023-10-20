@@ -7,7 +7,7 @@ const initialState: AuthState = {
   isSubmitting: false,
   isLoading: false,
   currentUser: null,
-  validationErrors: null,
+  errors: null,
 };
 
 const authFeature = createFeature({
@@ -23,7 +23,7 @@ const authFeature = createFeature({
     on(authActions.signup, (state) => ({
       ...state,
       isSubmitting: true,
-      validationErrors: null,
+      errors: null,
     })),
     on(authActions.signupSuccess, (state, action) => ({
       ...state,
@@ -33,14 +33,14 @@ const authFeature = createFeature({
     on(authActions.signupFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.error,
+      errors: action.error,
     })),
 
     //LOGIN
     on(authActions.login, (state) => ({
       ...state,
       isSubmitting: true,
-      validationErrors: null,
+      errors: null,
     })),
     on(authActions.loginSuccess, (state, action) => ({
       ...state,
@@ -50,14 +50,14 @@ const authFeature = createFeature({
     on(authActions.loginFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.errors,
+      errors: action.errors,
     })),
 
     //GET_USER
     on(authActions.getUser, (state) => ({
       ...state,
       isLoading: true,
-      validationErrors: null,
+      errors: null,
     })),
     on(authActions.getUserSuccess, (state, action) => ({
       ...state,
@@ -74,7 +74,7 @@ const authFeature = createFeature({
     on(authActions.editUser, (state) => ({
       ...state,
       isSubmitting: true,
-      validationErrors: null,
+      errors: null,
     })),
     on(authActions.editUserSuccess, (state, action) => ({
       ...state,
@@ -84,7 +84,7 @@ const authFeature = createFeature({
     on(authActions.editUserFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
-      validationErrors: action.errors,
+      errors: action.errors,
     })),
 
     //LOGOUT
@@ -92,13 +92,13 @@ const authFeature = createFeature({
       ...state,
       ...initialState,
       currentUser: null,
-      validationErrors: null,
+      errors: null,
     })),
 
     //LOGOUT
     on(authActions.errorReset, (state) => ({
       ...state,
-      validationErrors: null,
+      errors: null,
     })),
   ),
 });
@@ -110,5 +110,5 @@ export const {
   selectIsSubmitting,
   selectIsLoading,
   selectCurrentUser,
-  selectValidationErrors,
+  selectErrors,
 } = authFeature;

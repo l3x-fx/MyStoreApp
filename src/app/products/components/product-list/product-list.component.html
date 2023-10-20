@@ -1,4 +1,10 @@
-<div class="prod" fxLayout="column" fxLayoutAlign=" center start">
+<div *ngIf="loading"><app-loading></app-loading></div>
+<div
+  *ngIf="!loading"
+  class="prod"
+  fxLayout="column"
+  fxLayoutAlign=" center start"
+>
   <h1>Exclusive Offers</h1>
   <div
     class="filter"

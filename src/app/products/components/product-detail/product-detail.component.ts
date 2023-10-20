@@ -16,6 +16,9 @@ import {
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
+import { selectIsLoading } from '../../store/products.reducer';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-product-detail',
@@ -29,26 +32,37 @@ import {
     FlexLayoutModule,
     MatSnackBarModule,
     MatButtonModule,
+    LoadingComponent,
   ],
   templateUrl: './product-detail.component.html',
   styleUrls: ['./product-detail.component.css'],
 })
 export class ProductDetailComponent {
-  product$: Observable<RawProduct | null | undefined>;
+  product: RawProduct | null | undefined = null;
   quantity: number = 1;
   durationInSec: number = 3;
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'bottom';
+  loading: boolean = true;
 
   constructor(
     private _productService: ProductService,
+    private _store: Store,
     public route: ActivatedRoute,
     public router: Router,
     private _cartService: CartService,
     private _snackBar: MatSnackBar,
-  ) {
+  ) {}
+
+  ngOnInit() {
     const productId = Number(this.route.snapshot.params['id']);
-    this.product$ = this._productService.getById(productId);
+    this._productService
+      .getById(productId)
+      .subscribe((prod) => (this.product = prod));
+
+    this._store
+      .select(selectIsLoading)
+      .subscribe((loading) => (this.loading = loading));
   }
 
   addToCart(product: RawProduct): void {

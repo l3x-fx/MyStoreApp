@@ -3,11 +3,10 @@ import { productsActions } from './products.actions';
 import { ProductsState } from '../types/productsState.interface';
 
 const initialState: ProductsState = {
-  isSubmitting: false,
   isLoading: false,
   products: null,
   topThree: null,
-  validationErrors: null,
+  errors: null,
 };
 
 const productsFeature = createFeature({
@@ -18,35 +17,35 @@ const productsFeature = createFeature({
     //Get ALL_PRODUCTS
     on(productsActions.getAll, (state) => ({
       ...state,
-      isSubmitting: true,
-      validationErrors: null,
+      isLoading: true,
+      errors: null,
     })),
     on(productsActions.getAllSuccess, (state, action) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
       products: action.products,
     })),
     on(productsActions.getAllFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
-      validationErrors: action.error,
+      isLoading: false,
+      errors: action.error,
     })),
 
     //Get TOP_5
     on(productsActions.getTopThree, (state) => ({
       ...state,
-      isSubmitting: true,
-      validationErrors: null,
+      isLoading: true,
+      errors: null,
     })),
     on(productsActions.getTopThreeSuccess, (state, action) => ({
       ...state,
-      isSubmitting: false,
+      isLoading: false,
       topThree: action.topThree,
     })),
     on(productsActions.getTopThreeFailure, (state, action) => ({
       ...state,
-      isSubmitting: false,
-      validationErrors: action.error,
+      isLoading: false,
+      errors: action.error,
     })),
   ),
 });
@@ -54,8 +53,9 @@ const productsFeature = createFeature({
 export const {
   name: productsFeatureKey,
   reducer: productsReducer,
-  selectIsSubmitting,
+
   selectIsLoading,
   selectProducts,
   selectTopThree,
+  selectErrors,
 } = productsFeature;

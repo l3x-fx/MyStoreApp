@@ -7,12 +7,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatInputModule } from '@angular/material/input';
 import { UserLoginRequest } from '../../types/UserLogin.interface';
 import { authActions } from '../../store/auth.actions';
-import { combineLatest } from 'rxjs';
-import {
-  selectIsSubmitting,
-  selectValidationErrors,
-} from '../../store/auth.reducer';
+
+import { selectIsSubmitting, selectErrors } from '../../store/auth.reducer';
 import { Store } from '@ngrx/store';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-log-in',
@@ -24,6 +22,7 @@ import { Store } from '@ngrx/store';
     FlexLayoutModule,
     MatButtonModule,
     MatInputModule,
+    LoadingComponent,
   ],
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
@@ -31,14 +30,17 @@ import { Store } from '@ngrx/store';
 export class LogInComponent {
   email: string = '';
   password: string = '';
+  isSubmitting: boolean = false;
+  error: string | null = '';
 
-  data$ = combineLatest({
-    isSubmitting: this._store.select(selectIsSubmitting),
-    backendErrors: this._store.select(selectValidationErrors),
-  });
   constructor(private _store: Store) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this._store
+      .select(selectIsSubmitting)
+      .subscribe((submit) => (this.isSubmitting = submit));
+    this._store.select(selectErrors).subscribe((err) => (this.error = err));
+  }
 
   onSubmit() {
     const request: UserLoginRequest = {

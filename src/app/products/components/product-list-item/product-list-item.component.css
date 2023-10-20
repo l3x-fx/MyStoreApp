@@ -7,7 +7,25 @@ img {
   width: 100%;
 }
 mat-form-field {
+  width: 55%;
+}
+
+h2 {
+  font-weight: 600;
+}
+
+.price {
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+.pickbox {
   width: 100%;
+}
+
+.quantity-input {
+  padding: 0;
+  transform: scale(0.8);
 }
 
 @media only screen and (min-width: 400px) {

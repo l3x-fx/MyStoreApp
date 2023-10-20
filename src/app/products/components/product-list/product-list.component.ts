@@ -5,7 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { ProductListItemComponent } from '../product-list-item/product-list-item.component';
-import { selectProducts, selectTopThree } from '../../store/products.reducer';
+import {
+  selectIsLoading,
+  selectProducts,
+  selectTopThree,
+} from '../../store/products.reducer';
 import { Store } from '@ngrx/store';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +17,7 @@ import { MatSelectChange, MatSelectModule } from '@angular/material/select';
 import { MatDividerModule } from '@angular/material/divider';
 
 import { filter } from 'rxjs';
+import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-product-list',
@@ -27,6 +32,7 @@ import { filter } from 'rxjs';
     MatButtonModule,
     MatSelectModule,
     MatDividerModule,
+    LoadingComponent,
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
@@ -35,14 +41,16 @@ export class ProductListComponent implements OnInit {
   topThree: RawProduct[] | null | undefined;
   allProducts: RawProduct[] | null | undefined;
   products: RawProduct[] | null | undefined;
-
   category: string | null = null;
+  loading: boolean = true;
 
   constructor(
     private _store: Store,
     private _route: ActivatedRoute,
     private _router: Router,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this._route.queryParams
       .pipe(filter((params) => params['category']))
       .subscribe((param) => {
@@ -63,9 +71,7 @@ export class ProductListComponent implements OnInit {
       .subscribe(() => {
         this.products = this.allProducts;
       });
-  }
 
-  ngOnInit(): void {
     this._store.select(selectProducts).subscribe((products) => {
       this.allProducts = products;
       this.products = this.allProducts;
@@ -74,6 +80,10 @@ export class ProductListComponent implements OnInit {
     this._store.select(selectTopThree).subscribe((topThree) => {
       this.topThree = topThree;
     });
+
+    this._store
+      .select(selectIsLoading)
+      .subscribe((loading) => (this.loading = loading));
   }
 
   onCategoryChange($event: MatSelectChange) {

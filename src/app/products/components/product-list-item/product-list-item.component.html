@@ -4,19 +4,27 @@
       <img src="{{ product.img_url }}" />
     </a>
     <h2>{{ product.name }}</h2>
-    <p>{{ product.price }} $</p>
-    <mat-form-field>
-      <input
-        type="number"
-        matInput
-        inputmode="numeric"
-        min="1"
-        value="{{ quantity }}"
-        class="quantity-input"
-        [(ngModel)]="quantity"
-      />
-    </mat-form-field>
+    <div
+      class="pickbox"
+      fxLayout.gt-xs="row"
+      fxLayout="column"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="10px"
+    >
+      <p class="price">{{ product.price }} $</p>
 
+      <mat-form-field>
+        <input
+          type="number"
+          matInput
+          inputmode="numeric"
+          min="1"
+          value="{{ quantity }}"
+          class="quantity-input"
+          [(ngModel)]="quantity"
+        />
+      </mat-form-field>
+    </div>
     <button mat-raised-button type="button" (click)="addToCart(product)">
       Add to Cart
     </button>

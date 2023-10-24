@@ -2,6 +2,7 @@ import { Route } from '@angular/router';
 import { ProductListComponent } from './products/components/product-list/product-list.component';
 import { CheckoutComponent } from './user/components/checkout/checkout.component';
 import { AboutComponent } from './shared/components/about/about.component';
+import { AuthGuard } from './shared/auth.guard';
 
 export const appRoutes: Route[] = [
   {
@@ -42,6 +43,7 @@ export const appRoutes: Route[] = [
   },
   {
     path: 'account',
+    canActivate: [AuthGuard],
     loadComponent: () =>
       import('src/app/user/components/account/account.component').then(
         (m) => m.AccountComponent,

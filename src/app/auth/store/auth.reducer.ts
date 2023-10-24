@@ -6,6 +6,7 @@ const initialState: AuthState = {
   isShownIntro: true,
   isSubmitting: false,
   isLoading: false,
+  isAuthenticated: false,
   currentUser: null,
   errors: null,
 };
@@ -28,11 +29,13 @@ const authFeature = createFeature({
     on(authActions.signupSuccess, (state, action) => ({
       ...state,
       isSubmitting: false,
+      isAuthenticated: true,
       currentUser: action.user,
     })),
     on(authActions.signupFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
+      isAuthenticated: false,
       errors: action.error,
     })),
 
@@ -45,11 +48,13 @@ const authFeature = createFeature({
     on(authActions.loginSuccess, (state, action) => ({
       ...state,
       isSubmitting: false,
+      isAuthenticated: true,
       currentUser: action.user,
     })),
     on(authActions.loginFailure, (state, action) => ({
       ...state,
       isSubmitting: false,
+      isAuthenticated: false,
       errors: action.errors,
     })),
 
@@ -92,6 +97,7 @@ const authFeature = createFeature({
       ...state,
       ...initialState,
       currentUser: null,
+      isAuthenticated: false,
       errors: null,
     })),
 
@@ -109,6 +115,7 @@ export const {
   selectIsShownIntro,
   selectIsSubmitting,
   selectIsLoading,
+  selectIsAuthenticated,
   selectCurrentUser,
   selectErrors,
 } = authFeature;

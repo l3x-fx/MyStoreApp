@@ -12,12 +12,17 @@ import {
   UserLoginResponse,
 } from '../types/UserLogin.interface';
 import { UserEdit } from 'src/app/shared/models/UserEdit.interface';
+import { Store } from '@ngrx/store';
+import { selectIsAuthenticated } from '../store/auth.reducer';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private _http: HttpClient) {}
+  constructor(
+    private _http: HttpClient,
+    private _store: Store,
+  ) {}
 
   signup(data: UserSignupRequest): Observable<UserSignupResponse> {
     const url = environment.apiUrl + '/signup';
@@ -52,5 +57,9 @@ export class AuthService {
     }
 
     return this._http.put<User>(url, data).pipe(map((response) => response));
+  }
+
+  isAuthenticated(): Observable<boolean> {
+    return this._store.select(selectIsAuthenticated);
   }
 }

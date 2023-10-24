@@ -5,5 +5,6 @@ export interface AuthState {
   isSubmitting: boolean;
   currentUser: User | null | undefined;
   isLoading: boolean;
+  isAuthenticated: boolean;
   errors: string | null;
 }

@@ -1,6 +1,6 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/products/services/product.service';
 import { productsActions } from './products.actions';
 import { catchError, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';

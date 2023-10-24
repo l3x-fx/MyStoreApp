@@ -1,12 +1,14 @@
 mat-form-field {
-    width: 300px;
+  width: 300px;
 }
 
 mat-error {
-    font-size: 10px;
+  font-size: 10px;
 }
 button {
-    width: 150px;
+  width: 150px;
 }
 
-
+.errmsg {
+  color: red;
+}

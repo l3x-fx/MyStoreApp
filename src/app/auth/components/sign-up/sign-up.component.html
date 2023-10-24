@@ -1,5 +1,8 @@
 <div *ngIf="isSubmitting"><app-loading></app-loading></div>
-<section *ngIf="!isSubmitting" class="signup-form">
+<div *ngIf="error && !isSubmitting">
+  <app-error [error]="error"></app-error>
+</div>
+<section *ngIf="!isSubmitting && !error" class="signup-form">
   <form
     #f="ngForm"
     fxLayout="column"

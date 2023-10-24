@@ -10,10 +10,13 @@ import { Store } from '@ngrx/store';
 import { authActions } from '../../store/auth.actions';
 import { LoadingComponent } from 'src/app/shared/components/loading/loading.component';
 import { selectErrors, selectIsSubmitting } from '../../store/auth.reducer';
+import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 @Component({
   selector: 'app-sign-up',
   standalone: true,
+  templateUrl: './sign-up.component.html',
+  styleUrls: ['./sign-up.component.css'],
   imports: [
     CommonModule,
     FormsModule,
@@ -22,9 +25,8 @@ import { selectErrors, selectIsSubmitting } from '../../store/auth.reducer';
     FlexLayoutModule,
     MatInputModule,
     LoadingComponent,
+    ErrorComponent,
   ],
-  templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
 })
 export class SignUpComponent {
   lname: string = '';
@@ -33,13 +35,21 @@ export class SignUpComponent {
   password: string = '';
   isSubmitting: boolean = false;
   error: string | null = '';
+  reason: string | null = null;
 
   constructor(private _store: Store) {}
   ngOnInit() {
+    this._store.dispatch(authActions.errorReset());
     this._store
       .select(selectIsSubmitting)
       .subscribe((submit) => (this.isSubmitting = submit));
-    this._store.select(selectErrors).subscribe((err) => (this.error = err));
+
+    this._store.select(selectErrors).subscribe((err) => {
+      this.error = err;
+      if (this.error) {
+        this.reason = this.error?.substring(0, this.error?.indexOf(':'));
+      }
+    });
   }
   onSubmit() {
     const request: UserSignupRequest = {

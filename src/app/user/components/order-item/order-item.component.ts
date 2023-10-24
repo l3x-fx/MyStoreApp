@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { Product } from 'src/app/shared/models/Product.interface';
-import { ProductService } from 'src/app/services/product.service';
+import { ProductService } from 'src/app/products/services/product.service';
 import { forkJoin, map, take } from 'rxjs';
 import { RouterLink } from '@angular/router';
 

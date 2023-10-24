@@ -47,6 +47,9 @@ const productsFeature = createFeature({
       isLoading: false,
       errors: action.error,
     })),
+
+    //ErrorReset
+    on(productsActions.errorReset, (state) => ({ ...state, errors: null })),
   ),
 });
 

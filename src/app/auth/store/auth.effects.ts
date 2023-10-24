@@ -72,7 +72,7 @@ export const loginEffect = createEffect(
           catchError((errorResponse: HttpErrorResponse) => {
             return of(
               authActions.loginFailure({
-                errors: errorResponse.error.errors,
+                errors: errorResponse.error.error,
               }),
             );
           }),

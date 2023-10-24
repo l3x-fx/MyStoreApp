@@ -11,5 +11,7 @@ export const productsActions = createActionGroup({
     GetTopThree: emptyProps(),
     'GetTopThree success': props<{ topThree: RawProduct[] }>(),
     'GetTopThree failure': props<{ error: string }>(),
+
+    ErrorReset: emptyProps(),
   },
 });

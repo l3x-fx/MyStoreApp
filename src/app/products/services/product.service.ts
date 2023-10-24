@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { RawProduct } from '../shared/models/Product.interface';
+import { RawProduct } from '../../shared/models/Product.interface';
 import { Observable, map } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { selectProducts } from '../products/store/products.reducer';
+import { selectProducts } from '../store/products.reducer';
 import { Store } from '@ngrx/store';
 
 @Injectable({

@@ -46,7 +46,7 @@
           <input
             matInput
             #postalCode
-            type="text"
+            type="number"
             maxlength="5"
             formControlName="postalCode"
           />
@@ -98,7 +98,7 @@
 
         <mat-form-field *ngIf="paymentMethod === 'creditCard'">
           <mat-label>Credit Card Number</mat-label>
-          <input matInput formControlName="cardNumber" />
+          <input matInput #creditcard formControlName="cardNumber" />
         </mat-form-field>
 
         <p *ngIf="paymentMethod === 'paypal'">
@@ -112,7 +112,7 @@
           matStepperNext
           mat-raised-button
           color="primary"
-          [disabled]="!paymentFormGroup.valid"
+          [disabled]="paymentFormGroup.invalid"
           (click)="submitOrder()"
         >
           SUBMIT ORDER

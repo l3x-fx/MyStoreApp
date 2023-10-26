@@ -6,7 +6,10 @@ import { MatListModule } from '@angular/material/list';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { map } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
+import {
+  selectCurrentUser,
+  selectIsAuthenticated,
+} from 'src/app/auth/store/auth.reducer';
 import { RouterLink } from '@angular/router';
 import { authActions } from 'src/app/auth/store/auth.actions';
 import { selectCart } from 'src/app/user/store/user.reducer';
@@ -27,7 +30,7 @@ import { selectCart } from 'src/app/user/store/user.reducer';
 })
 export class SidenavComponent {
   @Output() closeSidenav = new EventEmitter();
-
+  isAuthenticated$ = this._store.select(selectIsAuthenticated);
   currentUser$ = this._store.select(selectCurrentUser);
   cart$ = this._store.select(selectCart);
   itemsNumber: number = 1;

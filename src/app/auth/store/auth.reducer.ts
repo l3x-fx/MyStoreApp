@@ -3,7 +3,7 @@ import { authActions } from './auth.actions';
 import { AuthState } from '../types/authState.interface';
 
 const initialState: AuthState = {
-  isShownIntro: true,
+  isShownIntro: false,
   isSubmitting: false,
   isLoading: false,
   isAuthenticated: false,
@@ -67,11 +67,13 @@ const authFeature = createFeature({
     on(authActions.getUserSuccess, (state, action) => ({
       ...state,
       isLoading: false,
+      isAuthenticated: true,
       currentUser: action.user,
     })),
     on(authActions.getUserFailure, (state) => ({
       ...state,
       isLoading: false,
+      isAuthenticated: false,
       currentUser: null,
     })),
 

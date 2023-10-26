@@ -34,7 +34,7 @@ import {
   styleUrls: ['./userdata.component.css'],
 })
 export class UserdataComponent {
-  isEdit = false;
+  isEdit: boolean = false;
   user: User | null | undefined;
   isSubmitting: boolean = false;
   error: string | null = '';
@@ -75,7 +75,13 @@ export class UserdataComponent {
   cancel() {
     this.isEdit = false;
   }
-
+  isDisabled(): boolean {
+    return !(this.firstname && this.lastname && this.isEmailValid(this.email));
+  }
+  isEmailValid(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    return emailRegex.test(email);
+  }
   onSubmit() {
     const editedUser: UserEdit = {
       firstname: this.firstname,

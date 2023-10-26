@@ -8,7 +8,10 @@ import { RouterLink } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { authActions } from 'src/app/auth/store/auth.actions';
 import { Store } from '@ngrx/store';
-import { selectCurrentUser } from 'src/app/auth/store/auth.reducer';
+import {
+  selectCurrentUser,
+  selectIsAuthenticated,
+} from 'src/app/auth/store/auth.reducer';
 import { map } from 'rxjs';
 import { selectCart } from 'src/app/user/store/user.reducer';
 import { AboutComponent } from 'src/app/shared/components/about/about.component';
@@ -31,6 +34,7 @@ import { AboutComponent } from 'src/app/shared/components/about/about.component'
 })
 export class HeaderComponent {
   currentUser$ = this._store.select(selectCurrentUser);
+  isAuthenticated$ = this._store.select(selectIsAuthenticated);
   cart$ = this._store.select(selectCart);
   itemsNumber: number = 1;
 

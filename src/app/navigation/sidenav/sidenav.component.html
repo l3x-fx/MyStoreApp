@@ -11,7 +11,7 @@
     <span class="nav-caption">MyCart</span>
   </a>
   <a
-    *ngIf="currentUser$ | async"
+    *ngIf="isAuthenticated$ | async"
     mat-list-item
     routerLink="/account"
     (click)="onClose()"
@@ -19,7 +19,7 @@
     <span class="nav-caption">MyAccount</span>
   </a>
   <a
-    *ngIf="!(currentUser$ | async)"
+    *ngIf="!(isAuthenticated$ | async)"
     mat-list-item
     routerLink="/signup"
     (click)="onClose()"
@@ -27,7 +27,7 @@
     <span class="nav-caption">SignUp</span>
   </a>
   <a
-    *ngIf="!(currentUser$ | async)"
+    *ngIf="!(isAuthenticated$ | async)"
     mat-list-item
     routerLink="/login"
     (click)="onClose()"
@@ -35,7 +35,7 @@
     <span class="nav-caption">LogIn</span>
   </a>
   <a
-    *ngIf="currentUser$ | async"
+    *ngIf="isAuthenticated$ | async"
     mat-list-item
     routerLink="/home"
     (click)="logout()"

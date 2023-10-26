@@ -39,17 +39,21 @@
     /></a>
     <span>|</span>
 
-    <a *ngIf="!(currentUser$ | async)" routerLink="/signup"><h2>SignUp</h2></a>
-    <span *ngIf="!(currentUser$ | async)">|</span>
-    <a *ngIf="!(currentUser$ | async)" routerLink="/login"><h2>LogIn</h2></a>
+    <a *ngIf="!(isAuthenticated$ | async)" routerLink="/signup"
+      ><h2>SignUp</h2></a
+    >
+    <span *ngIf="!(isAuthenticated$ | async)">|</span>
+    <a *ngIf="!(isAuthenticated$ | async)" routerLink="/login"
+      ><h2>LogIn</h2></a
+    >
 
-    <a *ngIf="currentUser$ | async" routerLink="/account"
+    <a *ngIf="isAuthenticated$ | async" routerLink="/account"
       ><mat-icon fontIcon="person"
     /></a>
 
-    <span *ngIf="currentUser$ | async">|</span>
+    <span *ngIf="isAuthenticated$ | async">|</span>
     <a
-      *ngIf="currentUser$ | async"
+      *ngIf="isAuthenticated$ | async"
       routerLink="/home"
       fxFlexAlign="end"
       (click)="logout()"

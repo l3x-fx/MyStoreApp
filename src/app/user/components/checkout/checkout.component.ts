@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
-import { Router, NavigationExtras, RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CartService } from 'src/app/user/services/cart.service';
 import {
+  AbstractControl,
+  AsyncValidatorFn,
   FormBuilder,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
   Validators,
 } from '@angular/forms';
 import { Product } from 'src/app/shared/models/Product.interface';
@@ -19,7 +22,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { Store } from '@ngrx/store';
 import { User } from '../../../shared/models/User.interface';
 import { selectCurrentUser } from '../../../auth/store/auth.reducer';
-import { Observable } from 'rxjs';
+import { Observable, of, switchMap } from 'rxjs';
 import { ErrorComponent } from 'src/app/shared/components/error/error.component';
 
 import {
@@ -60,7 +63,7 @@ export class CheckoutComponent {
     this._store.select(selectCurrentUser);
 
   paymentMethod: string = '';
-  cardNumber: string = '';
+  cardNumber: string = '0';
 
   cart: Product[] = [];
   orderNumber: number = 0;
@@ -111,7 +114,7 @@ export class CheckoutComponent {
 
     this.paymentFormGroup = this._formBuilder.group({
       paymentMethod: ['', Validators.required],
-      cardNumber: ['', Validators.required],
+      cardNumber: ['', [Validators.required], [this.cardNumberValidator()]],
     });
 
     this.paymentFormGroup
@@ -121,6 +124,31 @@ export class CheckoutComponent {
       });
 
     this.cardNumber = this.paymentFormGroup.get('cardNumber')?.value;
+  }
+  cardNumberValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      return of(control.value).pipe(
+        switchMap((cardNumber) => {
+          const cardNumberPure = cardNumber.replace(/\D/g, '');
+          // !!!
+          // disabled because this is only a showcase shop, not a real shop,
+          // so a real creditcard number is not required
+          // !!!
+          //
+          // const cardPattern =
+          //   /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/;
+
+          //   const isValid = cardPattern.test(cardNumberPure);
+
+          const isValid = cardNumberPure.toString().length >= 13;
+          console.log(cardNumber, isValid);
+          return isValid ? of(null) : of({ invalidCardNumber: true });
+        }),
+      );
+    };
   }
 
   calculateAmount(): void {

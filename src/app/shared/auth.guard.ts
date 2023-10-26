@@ -7,13 +7,14 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable, tap } from 'rxjs';
+import { PersistanceService } from './services/persistance.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard {
   constructor(
-    private authService: AuthService,
+    private persistanceService: PersistanceService,
     private router: Router,
   ) {}
 
@@ -21,14 +22,11 @@ export class AuthGuard {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot,
   ): Observable<boolean | UrlTree> | boolean | UrlTree {
-    return this.authService.isAuthenticated().pipe(
-      tap((isAuthenticated) => {
-        if (!isAuthenticated) {
-          this.router.navigateByUrl('/login');
-        }
+    const isAuthenticated = !!this.persistanceService.get('mystore-token');
+    if (!isAuthenticated) {
+      this.router.navigateByUrl('/login');
+    }
 
-        return isAuthenticated;
-      }),
-    );
+    return isAuthenticated;
   }
 }

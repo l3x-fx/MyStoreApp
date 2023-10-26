@@ -19,7 +19,7 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
     LoadingComponent,
   ],
   templateUrl: './orderlist.component.html',
-  styleUrls: ['./orderlist.component.css'],
+  styleUrls: ['./orderlist.component.scss'],
 })
 export class OrderlistComponent {
   pastOrders: Order[] = [];

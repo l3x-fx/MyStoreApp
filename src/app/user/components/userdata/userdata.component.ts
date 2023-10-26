@@ -31,7 +31,7 @@ import {
     LoadingComponent,
   ],
   templateUrl: './userdata.component.html',
-  styleUrls: ['./userdata.component.css'],
+  styleUrls: ['./userdata.component.scss'],
 })
 export class UserdataComponent {
   isEdit: boolean = false;

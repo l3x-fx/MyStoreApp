@@ -6,6 +6,6 @@ import { FlexLayoutModule } from '@angular/flex-layout';
   standalone: true,
   imports: [FlexLayoutModule],
   templateUrl: './about.component.html',
-  styleUrls: ['./about.component.css'],
+  styleUrls: ['./about.component.scss'],
 })
 export class AboutComponent {}

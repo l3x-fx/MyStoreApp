@@ -36,7 +36,7 @@ import { ErrorComponent } from 'src/app/shared/components/error/error.component'
     ErrorComponent,
   ],
   templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.css'],
+  styleUrls: ['./product-detail.component.scss'],
 })
 export class ProductDetailComponent {
   product: RawProduct | null | undefined = null;

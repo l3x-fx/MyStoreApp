@@ -26,7 +26,7 @@ import { selectCart } from 'src/app/user/store/user.reducer';
     FlexLayoutModule,
   ],
   templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css'],
+  styleUrls: ['./sidenav.component.scss'],
 })
 export class SidenavComponent {
   @Output() closeSidenav = new EventEmitter();

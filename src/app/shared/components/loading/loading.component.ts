@@ -8,6 +8,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   standalone: true,
   imports: [CommonModule, RouterLink, MatProgressSpinnerModule],
   templateUrl: './loading.component.html',
-  styleUrls: ['./loading.component.css'],
+  styleUrls: ['./loading.component.scss'],
 })
 export class LoadingComponent {}

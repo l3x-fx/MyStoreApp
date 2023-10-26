@@ -53,7 +53,7 @@ import { LoadingComponent } from 'src/app/shared/components/loading/loading.comp
   ],
   templateUrl: './checkout.component.html',
 
-  styleUrls: ['./checkout.component.css'],
+  styleUrls: ['./checkout.component.scss'],
 })
 export class CheckoutComponent {
   itemsFormGroup!: FormGroup;

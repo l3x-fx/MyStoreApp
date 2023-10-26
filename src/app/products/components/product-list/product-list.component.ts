@@ -39,7 +39,7 @@ import { productsActions } from '../../store/products.actions';
     ErrorComponent,
   ],
   templateUrl: './product-list.component.html',
-  styleUrls: ['./product-list.component.css'],
+  styleUrls: ['./product-list.component.scss'],
 })
 export class ProductListComponent implements OnInit {
   topThree: RawProduct[] | null | undefined;

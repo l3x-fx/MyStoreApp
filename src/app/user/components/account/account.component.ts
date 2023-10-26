@@ -30,7 +30,7 @@ import { OrderlistComponent } from '../orderlist/orderlist.component';
     OrderlistComponent,
   ],
   templateUrl: './account.component.html',
-  styleUrls: ['./account.component.css'],
+  styleUrls: ['./account.component.scss'],
 })
 export class AccountComponent {
   currentUser$ = this._store.select(selectCurrentUser);

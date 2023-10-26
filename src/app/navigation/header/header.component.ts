@@ -30,7 +30,7 @@ import { AboutComponent } from 'src/app/shared/components/about/about.component'
     AboutComponent,
   ],
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css'],
+  styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent {
   currentUser$ = this._store.select(selectCurrentUser);

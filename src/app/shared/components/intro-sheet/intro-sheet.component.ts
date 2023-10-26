@@ -13,7 +13,7 @@ import { authActions } from 'src/app/auth/store/auth.actions';
   standalone: true,
   imports: [MatBottomSheetModule, MatButtonModule, FlexLayoutModule],
   templateUrl: './intro-sheet.component.html',
-  styleUrls: ['./intro-sheet.component.css'],
+  styleUrls: ['./intro-sheet.component.scss'],
 })
 export class IntroSheetComponent {
   constructor(

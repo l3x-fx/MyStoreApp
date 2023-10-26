@@ -22,7 +22,7 @@ import { selectCart } from '../../store/user.reducer';
     MatButtonModule,
   ],
   templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css'],
+  styleUrls: ['./cart.component.scss'],
 })
 export class CartComponent {
   title: string = 'Shopping Cart';

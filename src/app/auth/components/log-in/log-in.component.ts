@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   selector: 'app-log-in',
   standalone: true,
   templateUrl: './log-in.component.html',
-  styleUrls: ['./log-in.component.css'],
+  styleUrls: ['./log-in.component.scss'],
   imports: [
     CommonModule,
     FormsModule,

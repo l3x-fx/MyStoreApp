@@ -12,7 +12,7 @@ import { productsActions } from 'src/app/products/store/products.actions';
   standalone: true,
   imports: [CommonModule, MatIconModule, FlexLayoutModule, MatButtonModule],
   templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css'],
+  styleUrls: ['./error.component.scss'],
 })
 export class ErrorComponent {
   @Input() error: string | null = '';

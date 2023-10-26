@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [CommonModule, MatExpansionModule, FlexLayoutModule, RouterLink],
   templateUrl: './order-item.component.html',
-  styleUrls: ['./order-item.component.css'],
+  styleUrls: ['./order-item.component.scss'],
 })
 export class OrderItemComponent {
   @Input() order: Order;

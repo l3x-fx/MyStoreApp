@@ -32,7 +32,7 @@ import { selectCart } from './user/store/user.reducer';
     MatBottomSheetModule,
   ],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'MyStoreApp';

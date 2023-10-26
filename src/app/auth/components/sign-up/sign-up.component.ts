@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
   selector: 'app-sign-up',
   standalone: true,
   templateUrl: './sign-up.component.html',
-  styleUrls: ['./sign-up.component.css'],
+  styleUrls: ['./sign-up.component.scss'],
   imports: [
     CommonModule,
     FormsModule,

@@ -33,7 +33,9 @@
         [(ngModel)]="quantity"
       />
     </mat-form-field>
-    <button mat-raised-button (click)="addToCart(product)">Add to Cart</button>
+    <button mat-raised-button color="primary" (click)="addToCart(product)">
+      Add to Cart
+    </button>
     <button mat-raised-button routerLink="/" style="margin: 20px 0px">
       Back to Product List
     </button>

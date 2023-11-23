@@ -4,6 +4,8 @@
 
 ---
 
+Try it out [here](https://lively-bush-066e13b03.4.azurestaticapps.net/)
+
 ## Project Overview
 
 MyStore is Angular single-page-application that provides users a enjoyable shopping experience:

@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://mystore-back.azurewebsites.net/',
+  apiUrl: 'https://webshopbe-dhdxhqaqauabesft.westeurope-01.azurewebsites.net/',
 };

@@ -9,7 +9,6 @@ import {
   selectErrors,
   selectIsLoading,
   selectProducts,
-  selectTopThree,
 } from '../../store/products.reducer';
 import { Store } from '@ngrx/store';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -61,19 +60,9 @@ export class ProductListComponent implements OnInit {
       .subscribe((param) => {
         const cat = param['category'];
         this.category = cat.charAt(0).toUpperCase() + cat.slice(1);
-
-        if (this.category === 'Top3') {
-          this._store.select(selectTopThree).subscribe((top3) => {
-            if (!top3) {
-              this._store.dispatch(productsActions.getTopThree());
-            }
-            this.products = top3;
-          });
-        } else {
-          this.products = this.allProducts?.filter(
-            (products) => products.category === this.category,
-          );
-        }
+        this.products = this.allProducts?.filter(
+          (products) => products.category === this.category,
+        );
       });
 
     this._route.queryParams
@@ -85,10 +74,6 @@ export class ProductListComponent implements OnInit {
     this._store.select(selectProducts).subscribe((products) => {
       this.allProducts = products;
       this.products = this.allProducts;
-    });
-
-    this._store.select(selectTopThree).subscribe((topThree) => {
-      this.topThree = topThree;
     });
 
     this._store

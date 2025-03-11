@@ -28,26 +28,3 @@ export const getAllEffect = createEffect(
   },
   { functional: true },
 );
-
-export const getTopThree = createEffect(
-  (actions$ = inject(Actions), productsService = inject(ProductService)) => {
-    return actions$.pipe(
-      ofType(productsActions.getTopThree),
-      switchMap(() => {
-        return productsService.getTopThree().pipe(
-          map((topThree: RawProduct[]) => {
-            return productsActions.getTopThreeSuccess({ topThree });
-          }),
-          catchError((errorResponse: HttpErrorResponse) => {
-            return of(
-              productsActions.getTopThreeFailure({
-                error: errorResponse.error.error,
-              }),
-            );
-          }),
-        );
-      }),
-    );
-  },
-  { functional: true },
-);

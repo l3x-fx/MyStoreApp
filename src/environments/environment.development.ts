@@ -1,3 +1,3 @@
 export const environment = {
-    apiUrl: 'http://localhost:8080',
-}
+  apiUrl: 'https://webshopbe-dhdxhqaqauabesft.westeurope-01.azurewebsites.net/',
+};

@@ -8,10 +8,6 @@ export const productsActions = createActionGroup({
     'GetAll success': props<{ products: RawProduct[] }>(),
     'GetAll failure': props<{ error: string }>(),
 
-    GetTopThree: emptyProps(),
-    'GetTopThree success': props<{ topThree: RawProduct[] }>(),
-    'GetTopThree failure': props<{ error: string }>(),
-
     ErrorReset: emptyProps(),
   },
 });

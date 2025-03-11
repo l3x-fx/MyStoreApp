@@ -20,11 +20,6 @@ export class ProductService {
     return this._http.get<RawProduct[]>(url).pipe(map((response) => response));
   }
 
-  getTopThree(): Observable<RawProduct[]> {
-    const url = environment.apiUrl + '/products/stats/topThree';
-    return this._http.get<RawProduct[]>(url).pipe(map((response) => response));
-  }
-
   getById(id: number): Observable<RawProduct | null | undefined> {
     return this._store
       .select(selectProducts)
